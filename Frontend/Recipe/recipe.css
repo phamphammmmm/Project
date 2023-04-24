@@ -1,0 +1,190 @@
+.bar {
+  width: 1px;
+  height: 2950px;
+  background-color: black;
+  margin-left: 40px;
+  margin-right: 20px;
+  color: rgb(68, 66, 41);
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+  box-sizing: border-box;
+}
+.textimg {
+  display: flex;
+  box-sizing: border-box;
+  margin-bottom: 70px;
+}
+.img-1 {
+  width: 594px;
+  height: 594px;
+  margin-left: 80px;
+  box-sizing: border-box;
+}
+.text-1 {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 35px;
+  box-sizing: border-box;
+}
+.text-2 {
+  font-family: "MayWilde";
+  font-style: italic;
+  font-size: 30px;
+  margin-bottom: 35px;
+  box-sizing: border-box;
+}
+.text-3 {
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-size: 50px;
+  font-weight: 600; /*  in độ dày của chữ đậm */
+  color: rgb(68, 66, 41);
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+.text-4 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.7; /* tăng khoảng cách giữa các dòng */
+  box-sizing: border-box;
+  margin-bottom: 55px;
+}
+.text-5 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  color: rgb(39, 34, 34);
+  font-size: 13px;
+  box-sizing: border-box;
+}
+.text-6 {
+  width: 760px;
+  font-family: Verdana;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.text-7 {
+  font-family: "biko-bold";
+  font-size: 20px;
+  line-height: 1.7;
+  margin-top: 25px;
+  box-sizing: border-box;
+}
+.text-71 {
+  font-family: Verdana;
+  font-size: 30px;
+  box-sizing: border-box;
+}
+.text-72 {
+  list-style-type: disc;
+}
+.text-73 {
+  font-family: Verdana;
+  font-size: 30px;
+  box-sizing: border-box;
+}
+.text-74 {
+  list-style-type: decimal;
+}
+strong {
+  color: rgb(48, 46, 29);
+}
+
+@media only screen and (min-width: 1200px) {
+  .bar {
+    width: 1px;
+    height: 2950px;
+    background-color: black;
+    margin-left: 20px;
+    margin-right: 30px;
+    color: rgb(68, 66, 41);
+    box-sizing: border-box;
+  }
+  .container {
+    display: flex;
+    box-sizing: border-box;
+  }
+  .textimg {
+    display: flex;
+    box-sizing: border-box;
+    margin-bottom: 70px;
+  }
+  .img-1 {
+    width: 594px;
+    height: 594px;
+    margin-left: 80px;
+    box-sizing: border-box;
+  }
+  .text-1 {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    margin-bottom: 35px;
+    box-sizing: border-box;
+  }
+  .text-2 {
+    font-family: "MayWilde";
+    font-style: italic;
+    font-size: 30px;
+    margin-bottom: 35px;
+    box-sizing: border-box;
+  }
+  .text-3 {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-size: 50px;
+    font-weight: 600; /*  in độ dày của chữ đậm */
+    color: rgb(68, 66, 41);
+    box-sizing: border-box;
+    margin-bottom: 30px;
+  }
+  .text-4 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.7; /* tăng khoảng cách giữa các dòng */
+    box-sizing: border-box;
+    margin-bottom: 55px;
+  }
+  .text-5 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    color: rgb(39, 34, 34);
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+  .text-6 {
+    font-family: Verdana;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .text-7 {
+    font-family: "biko-bold";
+    font-size: 20px;
+    line-height: 1.7;
+    margin-top: 25px;
+    box-sizing: border-box;
+  }
+  .text-71 {
+    font-family: Verdana;
+    font-size: 30px;
+    box-sizing: border-box;
+  }
+  .text-72 {
+    list-style-type: disc;
+  }
+  .text-73 {
+    font-family: Verdana;
+    font-size: 30px;
+    box-sizing: border-box;
+  }
+  .text-74 {
+    list-style-type: decimal;
+  }
+  strong {
+    color: rgb(48, 46, 29);
+  }
+}

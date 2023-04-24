@@ -1,0 +1,213 @@
+.img {
+  position: relative;
+  text-align: center;
+  color: rgb(227, 246, 229);
+}
+.style-img {
+  height: 435px;
+  width: 100%;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 450%;
+}
+
+.text-1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  text-align: center;
+  padding-top: 130px;
+}
+.text-2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 58px;
+  text-align: center;
+}
+.text-3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 23px;
+  text-align: center;
+}
+.text {
+  margin-bottom: 40px;
+}
+
+#fname,
+#lname,
+#email,
+#phone {
+  height: 50px;
+  width: 560px;
+  cursor: pointer;
+  padding-left: 10px;
+}
+#message {
+  height: 290px;
+  width: 1168px;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+#button {
+  width: 173px;
+  height: 52px;
+  cursor: pointer;
+}
+.input-5,
+.input-6 {
+  text-align: center;
+}
+.input-1,
+.input-3 {
+  padding-right: 15px;
+}
+.input-2,
+.input-4 {
+  padding-left: 15px;
+}
+.row {
+  justify-content: center;
+  /* cách cho 2 row căn giữa */
+  align-items: center;
+}
+.row-1,
+.row-2 {
+  display: flex; /* cách làm 2 thẻ div nằm ngang nhau */
+  padding-bottom: 15px;
+  justify-content: center;
+  /* cách cho 2 row căn giữa */
+  align-items: center;
+}
+.input-5 {
+  margin-bottom: 20px;
+}
+.input {
+  margin-bottom: 150px;
+}
+
+.font {
+  margin-left: 35%;
+}
+.home,
+.phone,
+.email {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.font-1,
+.font-2,
+.font-3 {
+  padding-right: 10px;
+}
+
+@media only screen and (min-width: 1200px) {
+  .img {
+    position: relative;
+    text-align: center;
+    color: rgb(227, 246, 229);
+  }
+  .style-img {
+    height: 435px;
+    width: 100%;
+  }
+  .bottom-left {
+    position: absolute;
+    bottom: 30%;
+    left: 15%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 450%;
+  }
+
+  .text-1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 130px;
+  }
+  .text-2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 58px;
+    text-align: center;
+  }
+  .text-3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    text-align: center;
+  }
+  .text {
+    margin-bottom: 40px;
+  }
+
+  #fname,
+  #lname,
+  #email,
+  #phone {
+    height: 50px;
+    width: 560px;
+    cursor: pointer;
+    padding-left: 10px;
+  }
+  #message {
+    height: 290px;
+    width: 1168px;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  #button {
+    width: 173px;
+    height: 52px;
+    cursor: pointer;
+  }
+  .input-5,
+  .input-6 {
+    text-align: center;
+  }
+  .input-1,
+  .input-3 {
+    padding-right: 15px;
+  }
+  .input-2,
+  .input-4 {
+    padding-left: 15px;
+  }
+  .row {
+    justify-content: center;
+    /* cách cho 2 row căn giữa */
+    align-items: center;
+  }
+  .row-1,
+  .row-2 {
+    display: flex; /* cách làm 2 thẻ div nằm ngang nhau */
+    padding-bottom: 15px;
+    justify-content: center;
+    /* cách cho 2 row căn giữa */
+    align-items: center;
+  }
+  .input-5 {
+    margin-bottom: 20px;
+  }
+  .input {
+    margin-bottom: 150px;
+  }
+
+  .font {
+    margin-left: 35%;
+  }
+  .home,
+  .phone,
+  .email {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  .font-1,
+  .font-2,
+  .font-3 {
+    padding-right: 10px;
+  }
+}

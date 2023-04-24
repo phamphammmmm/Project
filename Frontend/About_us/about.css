@@ -1,0 +1,126 @@
+/* Thiết lập kiểu CSS cho thiết bị có chiều rộng màn hình tối đa là 768px */
+p {
+  margin: 0 auto;
+  color: #f2f2f2;
+}
+button {
+  margin: 30px 0px 0px 0px;
+  padding: 15px 20px;
+}
+.content,
+.image-wrapper {
+  width: 50%;
+}
+/* section1 */
+.section1 {
+  background-image: url("/Project/Frontend/About_us/a (2).jpg");
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.section1 .image-wrapper {
+  width: 50%;
+  text-align: center;
+}
+.section1 .content1 {
+  width: 50%;
+}
+.section1 .image-wrapper img {
+  padding: 100px 0px;
+}
+.content1 * {
+  text-align: left;
+}
+.section1 .content1 p {
+  color: #f2f2f2;
+}
+
+.section1,
+.section2 h2,
+h3,
+h4 {
+  color: white;
+}
+
+/* section2 */
+.section2 {
+  background-image: url("Restaurant\ Menu\ Design.png");
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0px 100px 0px;
+}
+.section2 p {
+  width: 473px;
+  height: auto;
+  text-align: left;
+  color: #f2f2f2;
+}
+.section2 .content img {
+  width: 473px;
+  height: 311px;
+}
+.section2 .content {
+  width: 50%;
+  text-align: center;
+}
+.section2 .ceo {
+  width: 50%;
+  padding: 50px 0px 0px 50px;
+}
+.section2 .ceo img {
+  width: 473px;
+  height: 311px;
+}
+
+/* section3 */
+.section3 {
+  background-color: bisque;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.section3 .image-wrapper {
+  width: 50%;
+}
+.section3 .image-wrapper img {
+  max-width: 100%;
+  height: auto;
+}
+.section3 .content {
+  width: 50%;
+  padding: 0px 0px 0px 75px;
+}
+/* section4*/
+.section3,
+.section4 h2,
+p {
+  color: black;
+}
+.section4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.section4 .image-wrapper img {
+  width: 546px;
+  height: 358px;
+}
+.section4 .content {
+  text-align: left;
+  padding: 0px -10px;
+}
+.section4 .image-wrapper {
+  text-align: center;
+  padding: 110px 0px;
+}
+.section .content .description {
+  width: 350px;
+  padding: 0px 100px;
+}

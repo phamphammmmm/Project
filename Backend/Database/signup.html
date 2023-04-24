@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <link rel="stylesheet" href="signup.css">
+    </head>
+    <body>
+        <div class="signup">
+            <div class="signup-connect">
+                <h1>Create your account</h1>
+                <a href="#" class="btn btn-social btn-facebook"><i class="fa
+                        fa-facebook"></i>Sign in with Facebook</a>
+                <a href="#" class="btn btn-social btn-twitter"><i class="fa
+                        fa-twitter"></i>Sign in with Twitter</a>
+                <a href="#" class="btn btn-social btn-google"><i class="fa
+                        fa-google"></i>Sign in with Google</a>
+                <a href="#" class="btn btn-social btn-Linkedin"><i class="fa
+                        fa-linkedin"></i>Sign in with Linkedin</a>
+            </div>
+            <div class="signup-classic">
+                <h2>Or use the classical way</h2>
+                <form action="/api/signup" method="POST" id="signup-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password"
+                        required><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br>
+                    <input type="submit" value="Sign up">
+                </form>
+            </div>
+        </div>
+        <script src="signup.js"></script>
+    </body>
+</html>
