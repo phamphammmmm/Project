@@ -10,7 +10,7 @@ $sql="CREATE DATABASE IF NOT EXISTS Restaurant";
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Database created successfully";
+        // echo "Database created successfully";
     }
 }catch(Exeception $e){
     echo "Error creating database:  ".$e->getMessage();
@@ -30,7 +30,7 @@ $sql = "CREATE TABLE IF NOT EXISTS meals (
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -47,7 +47,7 @@ $sql = "CREATE TABLE IF NOT EXISTS orders (
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -70,11 +70,11 @@ $sql = "CREATE TABLE IF NOT EXISTS customers (
     order_id INT,
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
 )";
-$sql = "ALTER TABLE customers MODIFY customer_id INT AUTO_INCREMENT";
+
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -94,7 +94,7 @@ $sql = "CREATE TABLE IF NOT EXISTS order_detail (
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -104,15 +104,16 @@ try{
 
 // Create gallery table
 $sql = "CREATE TABLE IF NOT EXISTS gallery (
-    image_id INT PRIMARY KEY,
+    image_id INT AUTO_INCREMENT PRIMARY KEY,
     image_name VARCHAR(50),
     image_path VARCHAR(100),
-    image_description TEXT
+    image_description TEXT,
+    last_modified DATETIME 
 )";
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -137,7 +138,7 @@ $sql = "CREATE TABLE IF NOT EXISTS catering (
 try{
     $res=$conn->query($sql);
     if($res){
-       // echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -156,7 +157,7 @@ $sql = "CREATE TABLE IF NOT EXISTS feedback (
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -174,7 +175,7 @@ $sql = "CREATE TABLE IF NOT EXISTS award (
 try{
     $res=$conn->query($sql);
     if($res){
-        //echo "Table created successfully or already exists<br>";
+        // echo "Table created successfully or already exists<br>";
     }
     
 }catch(Exception $e){

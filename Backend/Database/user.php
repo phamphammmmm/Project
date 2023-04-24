@@ -1,21 +1,11 @@
 <?php
+//  session_start();
+// if (empty($_SESSION['loggedin'])) {
+//     header('Location:user.php');
+//     exit();
+// }
 require_once 'connect.php';
 mysqli_select_db($conn, "restaurant");
-
-function delete_user($user_id) {
-    global $conn;
-    $sql = "DELETE FROM customers WHERE customer_id = " . $user_id;
-    if ($conn->query($sql) === TRUE) {
-        echo "Người dùng đã được xóa thành công";
-    } else {
-        echo "Lỗi: " . $conn->error;
-    }
-}
-
-if (isset($_GET['id'])) {
-    $user_id = $_GET['id'];
-    delete_user($user_id);
-}
 
 $sql = "SELECT * FROM customers";
 

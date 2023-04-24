@@ -62,33 +62,3 @@ $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
     echo "Trạng thái " . $row["status"] . ": " . $row["count"] . "<br>";
 }
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' el='stylesheet'>
-</head>
-
-<body>
-    <form method="post" action="add_image.php">
-        <label for="image_name">Tên hình ảnh:</label>
-        <input type="text" name="image_name" id="image_name">
-        <br>
-        <label for="image_path">Đường dẫn hình ảnh:</label>
-        <input type="text" name="image_path" id="image_path">
-        <br>
-        <label for="image_description">Mô tả hình ảnh:</label>
-        <textarea name="image_description" id="image_description"></textarea>
-        <br>
-        <input type="submit" value="Thêm hình ảnh">
-    </form>
-</body>
-
-</html>
