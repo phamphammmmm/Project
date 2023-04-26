@@ -1,8 +1,6 @@
 <?php
 require_once 'connect.php';
 mysqli_select_db($conn, "restaurant");
-include 'delete_gallery.php';
-
 
 //khai báo biến là rỗng trước khi gán để biến không bị gán giá trị thừa
 $image_name = "";

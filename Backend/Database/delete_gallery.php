@@ -30,9 +30,5 @@ if (isset($_GET['id'])) {
     // Chuyển hướng về trang gallery
     header("Location: gallery.php");
     exit();
-} else {
-    // Nếu không có id được truyền vào, chuyển hướng về trang gallery
-    header("Location: gallery.php");
-    exit();
-}
+} 
 ?>
