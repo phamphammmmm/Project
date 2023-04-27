@@ -5,8 +5,9 @@
   box-sizing: border-box;
 }
 body {
-  background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
-  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  background-image: url(https://cdn.pixabay.com/photo/2022/05/17/05/08/biryani-7201670_960_720.jpg);
+  background-size: cover;
+  background-position-y: -100px;
   background-attachment: fixed;
   background-repeat: no-repeat;
   font-family: "Vibur", cursive;
@@ -16,12 +17,12 @@ body {
 form {
   width: 450px;
   min-height: 500px;
-  border-radius: 5px;
+  border-radius: 10px;
   height: auto;
   margin: 2% auto;
   box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
   padding: 2%;
-  background-image: linear-gradient(-225deg, #e3fdf5 50%, #ffe6fa 50%);
+  background: rgba(0, 0, 0, 0.5);
 }
 form.con {
   display: -webkit-flex;
@@ -39,10 +40,11 @@ header {
 header h2 {
   font-size: 250%;
   font-family: "Playfair Display", serif;
-  color: #3e403f;
+  color: #afa9a9;
 }
 header p {
   letter-spacing: 0, 05em;
+  color: #afa9a9;
 }
 .input-item i {
   font-size: 40px;
@@ -52,7 +54,7 @@ header p {
   text-align: center;
 }
 .input-item {
-  background: #fff;
+  background: transparent;
   color: #333;
   padding: 14.5px 0px 15px 9px;
   border-radius: 5px 0px 0px 5px;
@@ -78,6 +80,7 @@ i {
 
 /*input form*/
 input[class="form-input"] {
+  background: transparent;
   width: 240px;
   height: 50px;
 
@@ -89,11 +92,12 @@ input[class="form-input"] {
   color: #5e6472;
 
   outline: none;
-  border: none;
+  /* border: none; */
 
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 5px 5px 5px 5px;
   transition: 0.2s linear;
 }
+
 input[id="txt-input"] {
   width: 250px;
 }
@@ -107,14 +111,15 @@ input:focus {
   border-radius: 5px;
 }
 
-input[type="text"] {
+/* input[type="text"] {
   min-width: 250px;
-}
+} */
 
 /* buttons  */
 .log-in {
-  width: 260px;
-  background: #fff;
+  padding: 15px 20px;
+  background: #afa9a9;
+  border-radius: 5px 5px 5px 5px;
 }
 
 button {
@@ -150,11 +155,12 @@ button {
 .ftgt-pass {
   background: transparent;
   width: 100px;
+  color: #afa9a9;
 }
 
 /*     Sign Up button  */
 .sign-up {
-  background: #b8f2e6;
+  background: #afa9a9;
   width: 100px;
 }
 
@@ -162,6 +168,12 @@ button {
 button:hover {
   transform: translatey(3px);
   box-shadow: none;
+}
+
+.log-in:hover {
+  transform: translatey(3px);
+  box-shadow: none;
+  animation: ani9 0.4s ease-in-out infinite alternate;
 }
 
 /* buttons hover Animation */
