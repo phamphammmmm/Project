@@ -13,9 +13,7 @@ body {
   background-size: cover;
 }
 
-/*--------------------
-Buttons
---------------------*/
+/* Buttons */
 .btn {
   display: block;
   background: hsl(86, 76%, 71%);

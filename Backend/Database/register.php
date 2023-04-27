@@ -29,8 +29,8 @@ if (isset($_POST['register'])) {
 
     if (count($errors) == 0) {
         $password_hash = sha1($user_password);
-        $sql = "INSERT INTO customers (is_admin, customer_name, user_name, user_password, customers_date, customers_time, number_of_guests, contact_phone, contact_email, order_id) 
-        VALUES ('0', NULL, '$user_name', '$password_hash', CURDATE(), CURTIME(), '0', '$contact_phone', NULL, NULL)";
+        $sql = "INSERT INTO customers (is_admin, customer_name, user_name, user_password, customers_date, customers_time, contact_phone, contact_email, order_id) 
+        VALUES ('0', NULL, '$user_name', '$password_hash', CURDATE(), CURTIME(), '$contact_phone', NULL, NULL)";
         $res = $conn->query($sql);
         if($res){
             header("Location: login.php");
