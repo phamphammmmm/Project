@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($images as $image) {
             echo "Image ID: " . $image["image_id"] . "<br>";
             echo "Image Name: " . $image["image_name"] . "<br>";
-            echo "<img src='./Database/" . $image["image_name"] . "' alt='" . $image["image_name"] . "'><br>";
+            echo "<img src='./uploads/" . $image["image_path"] . "' alt='" . $image["image_name"] . "'><br>";
             echo "Image Description: " . $image["image_description"] . "<br>";
             echo "Last Modified: " . $image["last_modified"] . "<br>";
             echo "<hr>";

@@ -64,7 +64,6 @@ $sql = "CREATE TABLE IF NOT EXISTS customers (
     user_password VARCHAR(50),
     customers_date DATE,
     customers_time TIME,
-    number_of_guests INT,
     contact_phone VARCHAR(20),
     contact_email VARCHAR(50),
     order_id INT,

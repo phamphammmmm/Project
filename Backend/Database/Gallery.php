@@ -15,7 +15,7 @@ $image_description="";
 
         // Upload file ảnh vào thư mục /uploads
         $target_dir = "uploads";
-        $target_file = $target_dir . basename($_FILES["image_path"]["name"]);
+        $target_file = $target_dir.'/' . basename($_FILES["image_path"]["name"]);
         move_uploaded_file($_FILES["image_path"]["tmp_name"], $target_file);
 
         // Thực hiện truy vấn insert dữ liệu vào bảng gallery
