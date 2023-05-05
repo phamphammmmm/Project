@@ -3,14 +3,16 @@ require_once 'connect.php';
 mysqli_select_db($conn, "restaurant");
 
 //khai báo biến là rỗng trước khi gán để biến không bị gán giá trị thừa
-$image_name = "";
+$item_name = "";
 $image_path="";
-$image_description="";
+$item_description="";
+$price_item="";
 
     if (isset($_POST['save'])) {
-        $image_name = $_POST['image_name'];
+        $item_name = $_POST['item_name'];
         $image_path = $_FILES['image_path']['name'];
-        $image_description = $_POST['image_description'];
+        $item_description = $_POST['item_description'];
+        $price_item=$_POST['price_item'];
         $last_modified = date('Y-m-d H:i:s');
 
         // Upload file ảnh vào thư mục /uploads
@@ -19,7 +21,7 @@ $image_description="";
         move_uploaded_file($_FILES["image_path"]["tmp_name"], $target_file);
 
         // Thực hiện truy vấn insert dữ liệu vào bảng gallery
-        $sql = "INSERT INTO gallery (image_name, image_path, image_description, last_modified) VALUES ('$image_name', '$image_path', '$image_description', '$last_modified')";
+        $sql = "INSERT INTO gallery (item_name, image_path, item_description, price_item, last_modified) VALUES ('$item_name', '$image_path', '$item_description', '$price_item','$last_modified')";
         mysqli_query($conn, $sql);
     }
 
@@ -78,44 +80,48 @@ $image_description="";
 
 <body>
     <h1>Gallery Form</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <<form method="POST" enctype="multipart/form-data">
         <input type="hidden" name="image_id" value="<?php echo $image_id ?>">
-        <label for="image_name">Image Name:</label>
-        <input type="text" name="image_name" value="<?php echo $image_name ?>">
+        <label for="item_name">Item Name:</label>
+        <input type="text" name="item_name" value="<?php echo $item_name ?>">
         <label for="image_path">Image Path:</label>
         <input type="file" name="image_path">
-        <label for="image_description">Image Description:</label>
-        <textarea name="image_description"><?php echo $image_description ?></textarea>
+        <label for="price_item">Price Item:</label>
+        <input type="text" name="price_item" value="<?php echo $price_item ?>">
+        <label for="item_description">Item Description:</label>
+        <textarea name="item_description"><?php echo $item_description ?></textarea>
         <button type="submit" name="save">Save</button>
-    </form>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Path</th>
-                <th>Description</th>
-                <th>Last Modified</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($gallery as $row) { ?>
-            <tr>
-                <td><?php echo $row['image_id'] ?></td>
-                <td><?php echo $row['image_name'] ?></td>
-                <td><?php echo $row['image_path'] ?></td>
-                <td><?php echo $row['image_description'] ?></td>
-                <td><?php echo $row['last_modified'] ?></td>
-                <td>
-                    <a href="edit_gallery.php?id=<?php echo $row['image_id'] ?>">Edit</a>
-                    <a href="delete_gallery.php?id=<?php echo $row['image_id'] ?>"
-                        onclick="return confirm('Are you sure?')">Delete</a>
-                </td>
-            </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Path</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Last Modified</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($gallery as $row) { ?>
+                <tr>
+                    <td><?php echo $row['image_id'] ?></td>
+                    <td><?php echo $row['item_name'] ?></td>
+                    <td><?php echo $row['image_path'] ?></td>
+                    <td><?php echo $row['item_description'] ?></td>
+                    <td><?php echo number_format($row['price_item'], 0, '.', ',') . " VND" ?></td>
+                    <td><?php echo $row['last_modified'] ?></td>
+                    <td>
+                        <a href="edit_gallery.php?id=<?php echo $row['image_id'] ?>">Edit</a>
+                        <a href="delete_gallery.php?id=<?php echo $row['image_id'] ?>"
+                            onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
 </body>
 
 </html>

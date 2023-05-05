@@ -20,23 +20,23 @@ try{
 $conn->select_db("Restaurant");
 
 // Create meals table
-$sql = "CREATE TABLE IF NOT EXISTS meals (
-    meal_id INT PRIMARY KEY,
-    meal_name VARCHAR(50),
-    description TEXT,
-    price DECIMAL(8,2)
-)";
+$sql="CREATE TABLE IF NOT EXISTS meals (
+    meal_id INT AUTO_INCREMENT PRIMARY KEY,
+    meal_name VARCHAR(255) NOT NULL,
+    item_name VARCHAR(50)
+  )";
 
 try{
     $res=$conn->query($sql);
     if($res){
-        // echo "Table created successfully or already exists<br>";
+        // echo "Table meals created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
         echo"Error creating table:   ".$e->getMessage();
         die();
 }
+
 // Create orders table
 $sql = "CREATE TABLE IF NOT EXISTS orders (
     order_id INT PRIMARY KEY,
@@ -73,7 +73,7 @@ $sql = "CREATE TABLE IF NOT EXISTS customers (
 try{
     $res=$conn->query($sql);
     if($res){
-        // echo "Table created successfully or already exists<br>";
+        // echo "Table customers created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -83,36 +83,41 @@ try{
 
 // Create order_detail table
 $sql = "CREATE TABLE IF NOT EXISTS order_detail (
+    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
-    meal_id INT,
+    id_meal INT,
     quantity INT,
+    item_name VARCHAR(50),
     price DECIMAL(8,2),
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (meal_id) REFERENCES meals(meal_id)
+    FOREIGN KEY (id_meal) REFERENCES meals(id_meal),
+    FOREIGN KEY (item_name) REFERENCES menu_items(item_name)
 )";
-try{
-    $res=$conn->query($sql);
-    if($res){
+
+// try{
+//     $res=$conn->query($sql);
+//     if($res){
         // echo "Table created successfully or already exists<br>";
-    }
+//     }
     
-}catch(Exception $e){
-        echo"Error creating table:   ".$e->getMessage();
-        die();
-}
+// }catch(Exception $e){
+//         echo"Error creating table:   ".$e->getMessage();
+//         die();
+// }
 
 // Create gallery table
 $sql = "CREATE TABLE IF NOT EXISTS gallery (
     image_id INT AUTO_INCREMENT PRIMARY KEY,
-    image_name VARCHAR(50),
+    item_name VARCHAR(50),  
     image_path VARCHAR(100),
-    image_description TEXT,
+    item_description TEXT,
+    price_item DECIMAL(8,2),
     last_modified DATETIME 
 )";
 try{
     $res=$conn->query($sql);
     if($res){
-        // echo "Table created successfully or already exists<br>";
+        // echo "Table gallery created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -120,33 +125,33 @@ try{
         die();
 }
 
-// Create catering table
-$sql = "CREATE TABLE IF NOT EXISTS catering (
-    catering_id INT PRIMARY KEY,
-    event_name VARCHAR(50),
-    event_date DATE,
-    event_time TIME,
-    number_of_guests INT,
-    contact_phone VARCHAR(20),
-    contact_email VARCHAR(50),
-    catering_address VARCHAR(100),
-    catering_notes TEXT,
-    gallery_id INT,
-    FOREIGN KEY (gallery_id) REFERENCES gallery(image_id)
-)";
-try{
-    $res=$conn->query($sql);
-    if($res){
-        // echo "Table created successfully or already exists<br>";
-    }
+//Create catering table
+// $sql = "CREATE TABLE IF NOT EXISTS catering (
+//     catering_id INT AUTO_INCREMENT PRIMARY KEY,
+//     event_name VARCHAR(50),
+//     event_date DATE,
+//     event_time TIME,
+//     number_of_guests INT,
+//     contact_phone VARCHAR(20),
+//     contact_email VARCHAR(50),
+//     catering_address VARCHAR(100),
+//     catering_notes TEXT,
+//     gallery_id INT,
+//     FOREIGN KEY (gallery_id) REFERENCES gallery(item_name)
+// )";
+// try{
+//     $res=$conn->query($sql);
+//     if($res){
+//         echo "Table created successfully or already exists<br>";
+//     }
     
-}catch(Exception $e){
-        echo"Error creating table:   ".$e->getMessage();
-        die();
-}
+// }catch(Exception $e){
+//         echo"Error creating table:   ".$e->getMessage();
+//         die();
+// }
 // Create feedback table
 $sql = "CREATE TABLE IF NOT EXISTS feedback (
-    feedback_id INT PRIMARY KEY,
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(50),
     contact_phone VARCHAR(20),
     contact_email VARCHAR(50),
@@ -156,7 +161,7 @@ $sql = "CREATE TABLE IF NOT EXISTS feedback (
 try{
     $res=$conn->query($sql);
     if($res){
-        // echo "Table created successfully or already exists<br>";
+        // echo "Table feedback created successfully or already exists<br>";
     }
     
 }catch(Exception $e){
@@ -174,7 +179,7 @@ $sql = "CREATE TABLE IF NOT EXISTS award (
 try{
     $res=$conn->query($sql);
     if($res){
-        // echo "Table created successfully or already exists<br>";
+        //  echo "Table  award created successfully or already exists<br>";
     }
     
 }catch(Exception $e){

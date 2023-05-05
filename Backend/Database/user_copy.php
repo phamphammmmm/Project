@@ -27,6 +27,7 @@ $conn->close();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
+
 </head>
 
 <body>
@@ -54,8 +55,9 @@ $conn->close();
                 <td><?php echo $user['contact_phone']; ?></td>
                 <td><?php echo $user['contact_email']; ?></td>
                 <td><?php echo $user['is_admin']; ?></td>
+                <!-- Thêm nút "Sửa" vào cột Hành động -->
                 <td>
-                    <a href="edit_user.php?id=<?php echo $user['customer_id']; ?>">Sửa</a> |
+                    <button class="edit-btn" data-id="<?php echo $user['customer_id']; ?>">Sửa</button>
                     <a href="delete_user.php?id=<?php echo $user['customer_id']; ?>"
                         onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">Xóa</a>
                 </td>
@@ -66,6 +68,23 @@ $conn->close();
     <?php else : ?>
     <p>Không có người dùng nào.</p>
     <?php endif; ?>
+    <script>
+    // Sử dụng JavaScript và AJAX để tạo ra form sửa
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const userId = button.dataset.id;
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `edit_user_copy.php?id=${userId}`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const row = button.closest('tr');
+                    row.outerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        });
+    });
+    </script>
 </body>
 
 </html>
