@@ -11,7 +11,7 @@ $price_item="";
     if (isset($_POST['save'])) {
         $item_name = $_POST['item_name'];
         $image_path = $_FILES['image_path']['name'];
-        $item_description = $_POST['item_description'];
+        $item_description = mysqli_real_escape_string($conn, $_POST['item_description']);
         $price_item=$_POST['price_item'];
         $last_modified = date('Y-m-d H:i:s');
 

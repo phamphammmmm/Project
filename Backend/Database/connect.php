@@ -36,6 +36,26 @@ try{
         echo"Error creating table:   ".$e->getMessage();
         die();
 }
+// create cart table  
+$sql="CREATE TABLE IF NOT EXISTS cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    meal_id INT,
+    quantity INT,
+    price DECIMAL(8,2),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (meal_id) REFERENCES meals(meal_id)
+)";
+try{
+    $res=$conn->query($sql);
+    if($res){
+        // echo "Table created successfully or already exists<br>";
+    }
+    
+}catch(Exception $e){
+        echo"Error creating table:   ".$e->getMessage();
+        die();
+}
 
 // Create orders table
 $sql = "CREATE TABLE IF NOT EXISTS orders (
@@ -85,25 +105,26 @@ try{
 $sql = "CREATE TABLE IF NOT EXISTS order_detail (
     order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
-    id_meal INT,
+    meal_id INT,
     quantity INT,
     item_name VARCHAR(50),
     price DECIMAL(8,2),
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (id_meal) REFERENCES meals(id_meal),
-    FOREIGN KEY (item_name) REFERENCES menu_items(item_name)
+    FOREIGN KEY (meal_id) REFERENCES meals(meal_id)
 )";
 
-// try{
-//     $res=$conn->query($sql);
-//     if($res){
-        // echo "Table created successfully or already exists<br>";
-//     }
+
+try{
+    $res=$conn->query($sql);
+    if($res){
+        // echo "Table order_deatil created successfully or already exists<br>";
+    }
     
-// }catch(Exception $e){
-//         echo"Error creating table:   ".$e->getMessage();
-//         die();
-// }
+}catch(Exception $e){
+        echo"Error creating table:   ".$e->getMessage();
+        die();
+}
+
 
 // Create gallery table
 $sql = "CREATE TABLE IF NOT EXISTS gallery (

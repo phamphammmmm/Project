@@ -1,16 +1,16 @@
 <?php
 // Start a session
-session_start();
-
+// session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect the user to the login page if they are not logged in
-    header('Location: login.php');
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     // Redirect the user to the login page if they are not logged in
+//     header('Location: login.php');
+//     exit();
+// }
 require_once 'connect.php';
 mysqli_select_db($conn, "restaurant");
+
 // Check if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the values from the form
