@@ -24,7 +24,7 @@
                     <li><a href="#">About Us</a></li>
 
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn">Meals</a>
+                        <a href="meal_user.php" class="dropbtn">Meals</a>
                         <div class="dropdown-content">
                             <a href="#">Regular</a>
                             <a href="#">Lunch</a>
@@ -38,7 +38,7 @@
                     <li><a href="#">Awards</a></li>
                     <li><a href="#">Catering</a></li>
                     <li><a href="recipe.php">Recipe of the month</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="cart.php">Cart</a></li>
                     <li><a href="feedback.php">Feedback</a></li>
                 </ul>
             </div>

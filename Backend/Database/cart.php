@@ -1,18 +1,40 @@
 <?php
 require_once 'connect.php';
 mysqli_select_db($conn, 'restaurant');
+session_start();
 
+if (!isset($_SESSION['login'])) {
+    echo "hello";
+    header("Location: login.php");
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $customer_id = 1; // Thay đổi giá trị customer_id tương ứng
-    $meal_id = $_POST['product_id'];
+    $item_name = $_POST['product_id'];
     $quantity = $_POST['quantity'];
     $price = 100; // Thay đổi giá trị price tương ứng
-    add_to_cart($customer_id, $meal_id, $quantity, $price);
+
+    // Truy vấn để lấy thông tin sản phẩm
+    $stmt = mysqli_prepare($conn, "SELECT * FROM meals WHERE item_name = ?");
+    mysqli_stmt_bind_param($stmt, "s", $item_name);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+    $meal_id = $row['meal_id'];
+
+    // Truy vấn để lấy thông tin khách hàng
+    $stmt = mysqli_prepare($conn, "SELECT * FROM customers WHERE customer_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+    $customer_id = $row['customer_id'];
+
+
+    add_to_cart($conn,$customer_id, $meal_id, $quantity, $price);
 }
 
 // Thêm sản phẩm vào giỏ hàng
-function add_to_cart($customer_id, $meal_id, $quantity, $price) {
-    global $conn;
+function add_to_cart($conn, $customer_id, $meal_id, $quantity, $price) {
     $stmt = mysqli_prepare($conn, "SELECT * FROM cart WHERE customer_id = ? AND meal_id = ?");
     mysqli_stmt_bind_param($stmt, "ii", $customer_id, $meal_id);
     mysqli_stmt_execute($stmt);
@@ -35,8 +57,11 @@ function add_to_cart($customer_id, $meal_id, $quantity, $price) {
 
 
 // Lấy dữ liệu từ bảng cart
-$query = "SELECT * FROM cart";
-$result = mysqli_query($conn, $query);
+$query = "SELECT * FROM cart WHERE customer_id = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 $cart = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Tính tổng tiền của giỏ hàng
@@ -50,7 +75,7 @@ $total_price += $item['price'] * $item['quantity'];
 
 <head>
     <title>Cart</title>
-    
+
 </head>
 
 <body>
@@ -96,53 +121,51 @@ $total_price += $item['price'] * $item['quantity'];
         </tbody>
 </body>
 
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.quantity {
+    width: 50px;
+    text-align: center;
+}
+
+.total {
+    font-weight: bold;
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+    background-color: #3e8e41;
+}
+</style>
+
 </html>
-
-
-
-<!-- <style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th,
-    td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    img {
-        max-width: 100px;
-        max-height: 100px;
-    }
-
-    .quantity {
-        width: 50px;
-        text-align: center;
-    }
-
-    .total {
-        font-weight: bold;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 5px;
-        border: none;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
-    .button:hover {
-        background-color: #3e8e41;
-    }
-    </style> -->

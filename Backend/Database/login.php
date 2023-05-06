@@ -1,29 +1,47 @@
 <?php
+session_start();
 require_once "connect.php";
+mysqli_select_db($conn, "restaurant");
 
-if (isset($_POST['login'])) {
-    $user_name = $_POST['username'];
-    $user_password = $_POST['password'];
+$errors = [];
+try {
 
-    $sql = "SELECT * FROM customers WHERE user_name = '$user_name'";
-    $res = $conn->query($sql);
+    if (isset($_POST['submit'])) {
+        $username = $_POST['username'];
+        $password = sha1($_POST['password']);
 
-    if ($res->num_rows > 0) {
-        $row = $res->fetch_assoc();
-        $password_hash = sha1($user_password);
-        if ($password_hash == $row['user_password']) {
-            session_start();
-            $_SESSION['user_id'] = $row['customer_id'];
-            $_SESSION['user_name'] = $row['user_name'];
-            header("Location:home .php");
-        } else {
-            $error_msg = "Invalid password";
+        if (empty($username)) {
+            $errors['username'] = "Username cannot be left blank.<br>";
         }
-    } else {
-        $error_msg = "Invalid username";
+        if (empty($password)) {
+            $errors['password'] = "Password cannot be left blank.<br>";
+        }
+        if (empty($errors)) {
+            $sql = "SELECT * FROM customers WHERE user_name = '$username'";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                $res = mysqli_fetch_assoc($result);
+                if ($password === $res['user_password']) {
+                    $_SESSION['login'] = true;
+                    echo $_SESSION['login'];
+                    header('Location: home.php');
+                } else {
+                    var_dump($password);
+                    $errors['password2'] = "wrong account password";
+                }
+            } else {
+                $errors['username2'] = "wrong account name";
+            }
+        }
     }
+} catch (Exception $e) {
+    echo $e->getMessage();
+    exit();
 }
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,64 +49,52 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' el='stylesheet'>
+    <link rel="stylesheet" href="./stylesheet/login_css.css">
+    <title>login</title>
 </head>
 
 <body>
-    <div class="overlay">
-        <?php if (isset($error_msg)) { ?>
-        <div class="error"><?php echo $error_msg; ?></div>
-        <?php } ?>
-        <form method="post" action="" id="login-form">
-            <div class="con">
-                <header class="header-form">
-                    <h2>Log in</h2>
-                    <p>Login here using your username and
-                        password</p>
-                </header>
 
-                <div class="field-set">
-                    <!--User name-->
-                    <div class="input-item">
-                        <span class="bx bx-user-circle"></span>
-                        <input class="form-input" id="username" type="text" placeholder="Username" name="username"
-                            required>
-                    </div>
+    <div class="container">
 
-                    <!--Password-->
-                    <div class="input-item">
-                        <span class="bx bx-lock"></span>
-                        <input class="form-input" id="password" type="password" name="password" placeholder="Password"
-                            required>
-                        <!--Show/hidden password-->
-                        <span>
-                            <i class="fa fa-eye" aria-hidden="true" id="eye" type="button"></i>
-                        </span>
-                    </div>
+        <form action="" method="post">
+            <div class="title">
+                <h2>FORM LOGIN</h2>
+            </div>
+            <div class="use">
+                <label for="username"><b></b></label>
+                <input type="text" placeholder="Enter Username" name="username">
+                <?php if (!empty($errors['username'])) { ?>
+                <div class="error"><?php echo $errors['username']; ?></div>
+                <?php } ?>
+                <?php if (!empty($errors['username2'])) { ?>
+                <div class="error"><?php echo $errors['username2']; ?></div>
+                <?php } ?>
+            </div>
+            <div class="use">
+                <label for="psw"><b></b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
 
+                <?php if (!empty($errors['password'])) { ?>
+                <div class="error"><?php echo $errors['password']; ?></div>
+                <?php } ?>
+                <?php if (!empty($errors['password2'])) { ?>
+                <div class="error"><?php echo $errors['password2']; ?></div>
+                <?php } ?>
+            </div>
 
-                    <!--button log in-->
-                    <input type="submit" value="Login" name="login"></input>
-                    <div class="alert">
-                        <div id="error" style="color: red;"></div>
-                    </div>
-                </div>
+            <div class="login">
+                <p><button type="submit" name="submit">LOGIN</button></p>
+            </div>
 
-                <!--button other-->
-                <div class="other">
-                    <!--button forgot-->
-                    <button class="btn submits ftgt-pass">Forgot
-                        Password</button>
-                    <!--Sign up button-->
-                    <button class="btn submits sign-up" onclick="return signup()">Sign Up<span class="bx
-                                        bx-user-plus"></span></button>
-                </div>
+            <div class="container2">
+                <span class="psw"> <a href="./forgot.php"> Forgot password?</a></span>
+                <span class="psw">Do not have an account?<a href="register.php">Register now.</a></span>
+                <span class="psw">or <a href="home.php">Home Page</a></span>
+
             </div>
         </form>
     </div>
-    <script src="login.js"></script>
 </body>
 
 </html>

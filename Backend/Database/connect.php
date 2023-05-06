@@ -87,7 +87,9 @@ $sql = "CREATE TABLE IF NOT EXISTS customers (
     contact_phone VARCHAR(20),
     contact_email VARCHAR(50),
     order_id INT,
-    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (customer_id) REFERENCES cart(customer_id)
+
 )";
 
 try{
