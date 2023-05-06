@@ -276,9 +276,13 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         // Lấy thông tin sản phẩm và số lượng
         var productId = this.getAttribute("data-product-id");
         var quantity = document.getElementById("popup-item-quantity").value;
+        var price = document.getElementById("popup-item-price").innerHTML;
+        var price = document.getElementById("popup-item-price").innerHTML;
+        var price = document.getElementById("popup-item-price").innerHTML;
 
-        // console.log(productId);
-        // console.log(quantity);
+        console.log(productId);
+        console.log(quantity);
+        console.log(price);
 
         // Gửi yêu cầu POST đến trang cart.php
         var xhr = new XMLHttpRequest();
@@ -289,7 +293,8 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 console.log(this.responseText);
             }
         };
-        xhr.send("product_id=" + encodeURIComponent(productId) + "&quantity=" + encodeURIComponent(quantity));
+        xhr.send("product_id=" + encodeURIComponent(productId) + "&quantity=" + encodeURIComponent(quantity) +
+            "&price=" + encodeURIComponent(price));
 
         // Đóng popup
         popup.style.display = "none";
