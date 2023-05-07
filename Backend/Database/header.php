@@ -36,7 +36,7 @@
 
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Awards</a></li>
-                    <li><a href="#">Catering</a></li>
+                    <li><a href="cart.php">Cart</a></li>
                     <li><a href="recipe.php">Recipe of the month</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="feedback.php">Feedback</a></li>

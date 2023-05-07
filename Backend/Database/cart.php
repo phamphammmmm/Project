@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image_path = $row_gallery['image_path'];
 
     // Lấy customer_id từ session
-    $customer_id = $_SESSION['user_id'];
+    $customer_id = $_SESSION['customer_id'];
 
     add_to_cart($conn, $customer_id, $meal_id, $quantity, $price, $description, $image_path);
 }
@@ -80,7 +80,7 @@ function remove_from_cart($conn, $item_id) {
     // Lấy dữ liệu từ bảng cart
     $query = "SELECT * FROM cart WHERE customer_id = ?";
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['customer_id']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $cart = mysqli_fetch_all($result, MYSQLI_ASSOC);

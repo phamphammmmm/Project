@@ -21,9 +21,10 @@ try {
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
                 $res = mysqli_fetch_assoc($result);
+
                 if ($password === $res['user_password']) {
                     $_SESSION['login'] = true;
-                    echo $_SESSION['login'];
+                    $_SESSION['customer_id'] = $res['customer_id'];
                     header('Location: home.php');
                 } else {
                     var_dump($password);
