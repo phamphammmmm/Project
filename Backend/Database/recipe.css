@@ -8,6 +8,7 @@
   box-sizing: border-box;
 }
 .container {
+  margin-top: 80px;
   display: flex;
   box-sizing: border-box;
 }

@@ -217,6 +217,10 @@ foreach ($cart as $item) {
 </body>
 
 <style>
+body {
+    margin-top: 50px;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
