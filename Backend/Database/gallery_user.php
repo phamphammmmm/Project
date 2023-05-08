@@ -94,6 +94,9 @@ $gallery = mysqli_fetch_all($result, MYSQLI_ASSOC);
 </head>
 
 <body>
+    <?php
+    include 'header.php';
+?>
     <h1>Gallery</h1>
     <div class="gallery">
         <?php foreach ($gallery as $row) { ?>

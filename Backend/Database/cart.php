@@ -1,8 +1,10 @@
 <?php
 require_once 'connect.php';
+include 'header.php';
 mysqli_select_db($conn, 'restaurant');
 session_start();
 
+    
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
@@ -59,31 +61,40 @@ function add_to_cart($conn, $customer_id, $meal_id, $quantity, $price, $descript
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['remove'])) {
-        $item_id = $_POST['item_id'];
-        remove_from_cart($conn, $item_id);
+        $cart_id = $_POST['item_id'];
+        remove_from_cart($conn, $cart_id);
     }
-}
 
-// Function to remove item from cart
-function remove_from_cart($conn, $item_id) {
-    $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE meal_id = ?");
-    mysqli_stmt_bind_param($stmt, "i", $item_id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-    header("Location: cart.php"); // Redirect back to cart page
-    exit();
-}
+
+    function remove_from_cart($conn, $cart_id) {
+        $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $cart_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Cập nhật lại các giá trị cart_id trong cơ sở dữ liệu
+        mysqli_query($conn, "DELETE FROM cart WHERE cart_id IS NULL;");
+        mysqli_query($conn, "ALTER TABLE cart AUTO_INCREMENT = 1;");
+
+        header("Location: cart.php"); // Redirect back to cart page
+        exit();
+    }
 
 
     // Lấy dữ liệu từ bảng cart
-    $query = "SELECT * FROM cart WHERE customer_id = ?";
+    $query = "SELECT cart.*, meals.item_name, gallery.image_path, gallery.item_description 
+    FROM cart
+    INNER JOIN meals ON cart.meal_id = meals.meal_id
+    INNER JOIN gallery ON meals.item_name = gallery.item_name
+    WHERE cart.customer_id = ?";
+
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $_SESSION['customer_id']);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $cart = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 
 // Tính tổng tiền của giỏ hàng
 $total_price = 0;
@@ -104,58 +115,51 @@ foreach ($cart as $item) {
 </head>
 
 <body>
+
     <h1>Cart</h1>
     <div id="cart-info">
         <p>Giỏ hàng của bạn hiện có <?php echo count($cart); ?> sản phẩm.</p>
         <p>Tổng tiền: <?php echo $total_price; ?> đồng.</p>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($cart as $item) {
-                $meal_id = $item['meal_id'];
-                $stmt = mysqli_prepare($conn, "SELECT meals.item_name, gallery.image_path, gallery.item_description FROM meals INNER JOIN gallery ON meals.item_name = gallery.item_name WHERE meals.meal_id = ?");
-                mysqli_stmt_bind_param($stmt, "i", $meal_id);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                $row = mysqli_fetch_assoc($result);
-                if ($row) { ?>
-            <tr>
-                <td><img src="<?php echo $row['image_path']; ?>"></td>
-                <td><?php echo $row['item_name']; ?></td>
-                <td><?php echo $row['item_description']; ?></td>
-                <td><?php echo number_format($item['price']); ?></td>
-                <td>
-                    <form method="POST" action="update_cart.php">
-                        <input type="hidden" name="item_id" value="<?php echo $item['meal_id']; ?>">
-                        <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>">
-                        <button type="submit" name="update">Update</button>
-                    </form>
-                </td>
-                <td><?php echo number_format($item['price'] * $item['quantity']); ?></td>
-                <td>
-                    <form method="POST" action="cart.php">
-                        <input type="hidden" name="item_id" value="<?php echo $item['meal_id']; ?>">
-                        <button type="submit" name="remove"
-                            onclick="return confirm('Are you sure you want to remove this item from the cart?')">Remove</button>
-                    </form>
-
-                </td>
-            </tr>
-            <?php }
-            } ?>
-        </tbody>
-    </table>
+    <form id="cart-form" method="POST" action="checkout.php">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tích đi em iu</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($cart as $item) { ?>
+                <tr>
+                    <td><input type="checkbox" name="selected_items[]" value="<?php echo $item['cart_id']; ?>"></td>
+                    <td><img src="uploads/<?php echo $item['image_path']; ?>"></td>
+                    <td><?php echo $item['item_name']; ?></td>
+                    <td><?php echo $item['item_description']; ?></td>
+                    <td><?php echo number_format($item['price']); ?></td>
+                    <td>
+                        <form method="POST" action="update_cart.php">
+                            <input type="hidden" name="item_id" value="<?php echo $item['meal_id']; ?>">
+                            <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>">
+                            <button type="submit" name="update">Update</button>
+                        </form>
+                    </td>
+                    <td><?php echo number_format($item['price'] * $item['quantity']); ?></td>
+                    <td>
+                        <button type="button" onclick="removeItem(<?php echo $item['meal_id']; ?>)">Remove</button>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <button type="submit">Buy Now</button>
+    </form>
 
     <script>
     function updateCart(itemID) {
@@ -169,11 +173,49 @@ foreach ($cart as $item) {
         };
         xhr.send(formData);
     }
+    // Remove item from cart
+    function removeItem(itemID) {
+        var form = document.getElementById('cart-form');
+        var itemInput = document.createElement('input');
+        itemInput.setAttribute('type', 'hidden');
+        itemInput.setAttribute('name', 'remove_item[]');
+        itemInput.setAttribute('value', itemID);
+        form.appendChild(itemInput);
+
+        var row = document.querySelector('input[value="' + itemID + '"]').parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+
+    document.getElementById('cart-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi
+
+        // Lấy giá trị của các nút tích
+        var checkboxes = document.getElementsByName('selected_items[]');
+        var selectedItems = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedItems.push(checkboxes[i].value);
+            }
+        }
+
+        // Hiển thị giá trị trên console
+        console.log(selectedItems);
+
+        // Tiếp tục xử lý gửi form đến trang "checkout.php" nếu cần thiết
+        var form = document.getElementById('cart-form');
+        var selectedItemsInput = document.createElement('input');
+        selectedItemsInput.setAttribute('type', 'hidden');
+        selectedItemsInput.setAttribute('name', 'selected_items');
+        selectedItemsInput.setAttribute('value', selectedItems.join(','));
+        form.appendChild(selectedItemsInput);
+
+        // Gửi form đến trang checkout.php
+        form.submit();
+    });
     </script>
 
 </body>
 
-</html>
 <style>
 table {
     border-collapse: collapse;
@@ -210,14 +252,13 @@ img {
     padding: 5px 10px;
     border-radius: 5px;
     border: none;
-    background-color: #4CAF50;
     color: white;
     text-decoration: none;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .button:hover {
-    background-color: #3e8e41;
+    /* background-color: #3e8e41; */
 }
 </style>
 

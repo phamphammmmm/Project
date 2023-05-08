@@ -1,5 +1,6 @@
 <?php
 require_once 'connect.php';
+include 'header.php';
 mysqli_select_db($conn, "restaurant");
 
 // Lấy dữ liệu từ bảng meals
@@ -15,61 +16,60 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <head>
     <title>Meal</title>
     <style>
-    /* CSS cho giao diện hiển thị món ăn */
+    //* CSS cho giao diện hiển thị món ăn */
     .meal {
+        display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .meal-item {
-        margin: 40px 10px;
+        flex-basis: calc(100% / 5 - 20px);
+        /* Định nghĩa kích thước cột cho mỗi meal-item */
+        margin: 50px 10px;
         padding: 10px;
         text-align: center;
         border: 1px solid #ccc;
+        box-sizing: border-box;
     }
 
     .meal-item ul {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* Định nghĩa các cột trong grid */
+        grid-gap: 10px;
+        /* Khoảng cách giữa các cột */
         list-style-type: none;
         padding: 0;
         margin: 0;
     }
 
     .meal-item li {
-        display: inline-block;
-        margin: 5px;
+        margin: 0;
         padding: 5px;
         border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .hidden-price {
+        display: none;
     }
 
     .meal-item img {
         width: 100%;
-        height: auto;
+        height: 150px;
+        /* height:auto; */
     }
 
-    .meal-item h3 {
-        text-align: center;
-        margin: 0;
-        padding: 10px;
-        background-color: #eee;
-        font-size: 18px;
-        font-weight: normal;
-    }
-
-    .meal-item h4 {
-        text-align: center;
-        margin: 0;
-        padding: 10px;
-        background-color: #eee;
-        font-size: 18px;
-        font-weight: normal;
-    }
-
+    .meal-item h3,
+    .meal-item h4,
     .meal-item h5 {
         text-align: center;
-        margin: 10px;
-        font-size: 14px;
-        line-height: 1.4;
+        margin: 0;
+        padding: 10px;
+        background-color: #eee;
+        font-size: 18px;
+        font-weight: normal;
     }
 
     .meal-item button {
@@ -77,6 +77,7 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         margin: 10px auto;
         padding: 10px 20px;
         border: none;
+        border-radius: 5px;
         background-color: #2ecc71;
         color: white;
         font-size: 16px;
@@ -88,24 +89,11 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         background-color: #27ae60;
     }
 
-    @media (min-width: 768px) {
-        .col-sm-6 {
-            flex-basis: 50%;
-        }
+    @media (max-width: 768px) {
 
-        .col-md-4 {
-            flex-basis: 33.33%;
-        }
-
-        .col-lg-3 {
-            flex-basis: 25%;
-
-        }
-    }
-
-    @media (min-width: 1200px) {
+        /* Hiển thị mỗi meal-item trên một dòng và chiếm full width */
         .meal-item {
-            width: 25%;
+            flex-basis: calc(100% - 20px);
         }
     }
 
@@ -122,6 +110,7 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     .popup-content {
+        width: 350px;
         background-color: white;
         position: absolute;
         top: 50%;
@@ -132,12 +121,31 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
-    #popup-item-description {
-        width: 300px;
+    .popup-content p {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     .popup button {
         margin: 10px 0px auto;
+    }
+
+    /* Popup outside */
+    #popup-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #popup-item-description,
+    #popup-item-name {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
     }
 
     #popup-item-quantity {
@@ -180,7 +188,8 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <?php } ?>
                     <h4><?php echo $item['item_name'] ?></h4>
                     <p><?php echo $gallery['item_description'] ?></p>
-                    <p><?php echo number_format($gallery['price_item'], 0, '.', ',') . " VND" ?></p>
+                    <p class="hidden-price"><?php echo number_format($gallery['price_item'], 0, '.', ',') . " VND" ?>
+                    </p>
                     <button data-product-id="<?php echo $gallery['item_name'] ?>">View</button>
                 </li>
                 <?php } ?>
@@ -189,21 +198,20 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <?php } ?>
     </div>
     <div id="popup" class="popup">
+        <div id="popup-overlay"></div> <!-- Thêm phần tử overlay -->
         <div class="popup-content">
             <img id="popup-item-image" src="" alt="" width="200">
             <h2 id="popup-item-name"></h2>
             <p id="popup-item-description"></p>
             <p id="popup-item-price"></p>
-            <button id="popup-quantity-increase">+</button>
-            <input id="popup-item-quantity" type="number" value="1" min="1">
-            <button id="popup-quantity-decrease">-</button>
-            <br>
-
+            <div class="quantity">
+                <button id="popup-quantity-decrease">-</button>
+                <input id="popup-item-quantity" type="number" value="1" min="1">
+                <button id="popup-quantity-increase">+</button>
+            </div>
             <button type="submit" form="add-to-cart-form" formaction="cart.php" formmethod="post"
                 id="popup-add-to-cart">Add to Cart</button>
-            <br>
-
-            <button id="popup-close">Close</button>
+            <!-- <button id="popup-close">Close</button> -->
         </div>
     </div>
 
@@ -225,6 +233,7 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     // Lấy phần tử popup và các phần tử con của nó
     var popup = document.getElementById("popup");
+    var overlay = document.getElementById('popup-overlay');
     var popupItemName = document.getElementById("popup-item-name");
     var popupItemImage = document.getElementById("popup-item-image");
     var popupItemDescription = document.getElementById("popup-item-description");
@@ -247,7 +256,7 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 productId = this.getAttribute("data-product-id");
             }
             // Lấy thông tin về sản phẩm từ các phần tử con của nút VIEW
-            var itemName = this.parentNode.querySelector("h4")?.textContent ?? "Unknown item";
+            var itemName = this.parentNode.querySelector("h4").textContent;
             var itemImage = this.parentNode.querySelector("img").src;
             var itemDescription = this.parentNode.querySelector("p:nth-of-type(1)").textContent;
             var itemPrice = this.parentNode.querySelector("p:nth-of-type(2)").textContent;
@@ -300,13 +309,18 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         popup.style.display = "none";
     });
 
+    //Click popup outside
+    overlay.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
     // Thêm sự kiện click cho nút Close
-    var popupCloseButton = document.getElementById("popup-close");
-    popupCloseButton.addEventListener("click",
-        function() {
-            // Đóng popup
-            popup.style.display = "none";
-        });
+    // var popupCloseButton = document.getElementById("popup-close");
+    // popupCloseButton.addEventListener("click",
+    //     function() {
+    //         // Đóng popup
+    //         popup.style.display = "none";
+    //     });
     </script>
 </body>
 

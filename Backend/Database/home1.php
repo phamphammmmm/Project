@@ -1,3 +1,6 @@
+<?php
+    include 'header.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +12,8 @@
     <link rel="stylesheet" href="home.css">
 </head>
 
+
 <body>
-    <?php
-    include 'header.php';
-?>
     <div class="container">
         <div class="row1">
             <img src="https://restaurant.leprecatelan.com/upload/photos/5265/t15.jpg" alt=""
@@ -100,6 +101,7 @@
         </div>
     </div>
     </div>
+
 </body>
 
 </html>

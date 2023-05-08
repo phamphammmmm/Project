@@ -148,7 +148,7 @@ try{
         die();
 }
 
-//Create catering table
+// Create catering table
 // $sql = "CREATE TABLE IF NOT EXISTS catering (
 //     catering_id INT AUTO_INCREMENT PRIMARY KEY,
 //     event_name VARCHAR(50),
