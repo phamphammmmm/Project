@@ -1,4 +1,4 @@
-`<?php
+<?php
 require_once 'connect.php';
 // include 'header.php';
 mysqli_select_db($conn, 'restaurant');
@@ -27,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Tạo đơn hàng mới
     $order_id = uniqid($_SESSION['customer_id'] . $_SERVER['REMOTE_ADDR']); // Sử dụng số ngẫu nhiên duy nhất kết hợp thông tin khác
     $order_date = date('Y-m-d');
+    $$timezone = date_default_timezone_get();
+    date_default_timezone_set($timezone);
     $order_time = date('H:i:s');
+    
 
     // Lưu thông tin đơn hàng vào bảng orders
     $stmt = mysqli_prepare($conn, "INSERT INTO orders (order_id, customer_id, order_date, order_time) VALUES (?, ?, ?, ?)");
@@ -67,16 +70,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<p>Cảm ơn bạn đã mua hàng!</p>';
         echo '<p>Mã đơn hàng của bạn: ' . $order_id . '</p>';
         echo '<p>Tổng số tiền: ' . $totalPrice . '</p>';
+        
+    // Xóa các sản phẩm đã được đặt từ giỏ hàng
+    foreach ($selected_items as $cart_id) {
+        $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $cart_id);
+        mysqli_stmt_execute($stmt);
+    }
 
-        // // Xóa các sản phẩm đã được đặt từ giỏ hàng
-        // foreach ($selected_items as $cart_id) {
-        //     $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
-        //     mysqli_stmt_bind_param($stmt, "i", $cart_id);
-        //     mysqli_stmt_execute($stmt);
-        // }
+    // Hiển thị thông báo thành công và chuyển hướng
 
-        // // Chuyển hướng người dùng đến trang cảm ơn
-        // header("Location: thank_you.php");
-        // exit();
-
+      // Hiển thị thông báo thành công và chuyển hướng
+      echo '
+      <script>
+      $(document).ready(function() {
+          Swal.fire({
+              title: "Đơn hàng đã được đặt thành công!",
+              icon: "success",
+              timer: 1000, // Thời gian hiển thị thông báo (1 giây)
+              showConfirmButton: false
+          }).then(function() {
+              window.location.href = "bill.php?order_id=' . $order_id . '";
+          });
+      });
+      </script>
+      ';
 }
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>éc éc</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.css">
+</head>
+
+<body>
+</body>
+
+</html>
