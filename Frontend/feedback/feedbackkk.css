@@ -1,0 +1,159 @@
+body {
+  background-color: rgb(255, 255, 255);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.banner {
+  position: relative;
+  /* text-align: center; */
+  background-size: cover;
+}
+
+.banner img {
+  width: 100%;
+  height: 435px;
+}
+
+.row-img img{
+  max-width: 100%;
+  vertical-align: top;
+  width: 262px;
+  height: 393px;
+}
+
+.heading-banner {
+  position: absolute;
+  bottom: 30%;
+  left: 15%;
+  font-size: 450%;
+  color: azure;
+}
+
+.header-feedback {
+  text-align: center;
+  font-size: 200%;
+}
+
+/* .container-2 {
+  align-items: center;
+  max-width: 300px;
+} */
+
+.text-feedback {
+  margin-bottom: 150px;
+  display: flex;
+  justify-content: center;   /* cách cho 2 row căn giữa */
+}
+
+.row-img, .row-text {
+  display: flex;
+  justify-content: center;   /* cách cho 2 row căn giữa */
+  margin-left: 30px;
+}
+
+.row {
+  justify-content: center;  /* cách cho 2 row căn giữa */
+  align-items: center;
+}
+
+.row-1,
+.row-2 {
+  display: flex;   /* cách làm 2 thẻ div nằm ngang nhau */
+  padding-bottom: 15px;
+  /* justify-content: center;   cách cho 2 row căn giữa */
+  align-items: center;
+
+}
+
+input {
+  border-radius: 5px;
+  border: 1px solid #a12022;
+  border-bottom: 1px solid #a12022;
+}
+
+.cus-name,
+.cus-phone {
+  padding-right: 15px;
+}
+
+.cus-email,
+.cus-subject {
+  padding-left: 15px;
+}
+
+#name,
+#email,
+#phone,
+#subject {
+  height: 50px;
+  width: 300px;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.item-1,
+.item-2,
+.item-3 {
+  cursor: pointer;
+  height: 50px;
+  width: 560px;
+  line-height: 40px;
+  border-radius: 5px;
+  border: 1px solid black;
+  display: ;
+}
+
+.button {
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #a12022;
+  background-color: white;
+  color: #a12022;
+  height: 35px;
+  width: 120px;
+}
+
+textarea {
+  border-radius: 5px;
+  border: 1px solid #a12022;
+}
+
+.button.selected {
+  background-color: #a12022;
+  color: white;
+}
+
+.button:not(.selected):hover {
+  background-color: #a12022;
+  color: white;
+}
+
+strong {
+  font-size: 200%;
+}
+
+#cus-message {
+  height: 40px;
+  width: 600px;
+}
+
+.button-submit {
+  width: 173px;
+  height: 52px;
+  cursor: pointer;
+  color: white;
+  background-color: #a12022;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.button-submit:not(.selected):hover {
+  background-color: white;
+  color: black;
+}
+
+/* button:focus {
+  outline: #a12022 auto 5px;
+} */
+
+
