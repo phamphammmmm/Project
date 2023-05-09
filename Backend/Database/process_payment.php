@@ -1,6 +1,6 @@
-<?php
+`<?php
 require_once 'connect.php';
-include 'header.php';
+// include 'header.php';
 mysqli_select_db($conn, 'restaurant');
 session_start();
 
@@ -12,17 +12,20 @@ if (!isset($_SESSION['login'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy thông tin người dùng và đơn hàng từ form
     $name = $_POST['name'];
-    $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
     $card_number = $_POST['card_number'];
     $expiration_date = $_POST['expiration_date'];
     $cvv = $_POST['cvv'];
+
     $selected_items = isset($_POST['selected_items']) ? $_POST['selected_items'] : '';
     $selected_items = is_string($selected_items) ? explode(',', $selected_items) : [];
 
+    $totalPrice = isset($_POST['total_price']) ? $_POST['total_price'] : 0;
+
+    $customer_id = $_SESSION['customer_id'];
     // Tạo đơn hàng mới
-    $order_id = uniqid(); // Tạo order_id duy nhất
+    $order_id = uniqid($_SESSION['customer_id'] . $_SERVER['REMOTE_ADDR']); // Sử dụng số ngẫu nhiên duy nhất kết hợp thông tin khác
     $order_date = date('Y-m-d');
     $order_time = date('H:i:s');
 
@@ -30,6 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = mysqli_prepare($conn, "INSERT INTO orders (order_id, customer_id, order_date, order_time) VALUES (?, ?, ?, ?)");
     mysqli_stmt_bind_param($stmt, "ssss", $order_id, $customer_id, $order_date, $order_time);
     mysqli_stmt_execute($stmt);
+
+    if (mysqli_stmt_errno($stmt)) {
+        echo "Lỗi: " . mysqli_stmt_error($stmt);
+    }
+
 
     // Lưu thông tin chi tiết đơn hàng vào bảng order_detail
     foreach ($selected_items as $cart_id) {
@@ -54,18 +62,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Sau khi đã lưu đơn hàng thành công, bạn có thể thực hiện các thao tác tiếp theo, như hiển thị thông báo hoặc chuyển hướng người dùng đến trang cảm ơn.
 
-    // Ví dụ: Hiển thị thông báo thành công và chuyển hướng
-    echo '<p>Đơn hàng của bạn đã được đặt thành công!</p>';
-    echo '<p>Cảm ơn bạn đã mua hàng!</p>';
-    echo '<p>Mã đơn hàng của bạn: ' . $order_id . '</p>';
-    echo '<p>Tổng số tiền: ' . $totalPrice . '</p>';
+    // Hiển thị thông báo thành công và chuyển hướng
+        echo '<p>Đơn hàng của bạn đã được đặt thành công!</p>';
+        echo '<p>Cảm ơn bạn đã mua hàng!</p>';
+        echo '<p>Mã đơn hàng của bạn: ' . $order_id . '</p>';
+        echo '<p>Tổng số tiền: ' . $totalPrice . '</p>';
 
-    // Sau khi hiển thị thông báo, bạn có thể xóa các sản phẩm trong giỏ hàng của người dùng, hoặc thực hiện các thao tác khác.
+        // // Xóa các sản phẩm đã được đặt từ giỏ hàng
+        // foreach ($selected_items as $cart_id) {
+        //     $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
+        //     mysqli_stmt_bind_param($stmt, "i", $cart_id);
+        //     mysqli_stmt_execute($stmt);
+        // }
 
-    // Ví dụ: Xóa các sản phẩm đã được đặt từ giỏ hàng
-    foreach ($selected_items as $cart_id) {
-        $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $cart_id);
-        mysqli_stmt_execute($stmt);
-    }
+        // // Chuyển hướng người dùng đến trang cảm ơn
+        // header("Location: thank_you.php");
+        // exit();
+
 }

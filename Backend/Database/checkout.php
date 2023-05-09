@@ -179,13 +179,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $selected_items = isset($_POST['selected_items']) ? $_POST['selected_items'] : '';
         $selected_items = is_string($selected_items) ? explode(',', $selected_items) : [];
 
-        foreach ($selected_items as $itemId) {
-            echo '<input type="hidden" name="selected_items[]" value="' . $itemId . '">';
+        foreach ($selected_items as $cart_id) {
+            echo '<input type="hidden" name="selected_items[]" value="' . $cart_id . '">';
         }
     }
     ?>
 
-        <input type="hidden" name="total_price" value="<?php echo $totalPrice; ?>">
+        <input type="hidden" name="total_price" id="total_price" value="<?php echo $totalPrice; ?>">
 
         <button type="submit" name="submit" id="order-now-btn">Order Now</button>
     </form>
@@ -217,52 +217,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Lấy giá trị của các sản phẩm đã chọn
             var selectedItems = [];
-            $('input[name="selected_items[]"]:checked').each(function() {
+            $('input[name="selected_items[]"]').each(function() {
                 selectedItems.push($(this).val());
             });
+
 
             // Lấy giá trị tổng giá tiền
             var totalPrice = $('#total_price').val();
 
             // Log the values to check
-            console.log('Name:', name);
-            console.log('Phone:', phone);
-            console.log('Address:', address);
-            console.log('Note:', note);
-            console.log('Card Number:', cardNumber);
-            console.log('Expiration Date:', expirationDate);
-            console.log('CVV:', cvv);
-            if (typeof selectedItems !== 'undefined') {
-                console.log('Selected Items:', selectedItems);
-            }
+            // console.log('Name:', name);
+            // console.log('Phone:', phone);
+            // console.log('Address:', address);
+            // console.log('Note:', note);
+            // console.log('Card Number:', cardNumber);
+            // console.log('Expiration Date:', expirationDate);
+            // console.log('CVV:', cvv);
+            // if (typeof selectedItems !== 'undefined') {
+            //     console.log('Selected Items:', selectedItems);
+            // }
 
-            if (typeof totalPrice !== 'undefined') {
-                console.log('Total Price:', totalPrice);
-            }
+            // if (typeof totalPrice !== 'undefined') {
+            //     console.log('Total Price:', totalPrice);
+            // }
 
             // Tạo một form ẩn để chứa dữ liệu và submit
-            // var form = $('<form method="POST" action="process_payment.php"></form>');
+            var form = $('<form method="POST" action="process_payment.php"></form>');
 
             // Tạo các input ẩn để truyền dữ liệu
-            // function createHiddenInput(name, value) {
-            //     return $('<input type="hidden" />').attr('name', name).val(value);
-            // }
-            // // Thêm các trường input vào form
-            // form.append(createHiddenInput('name', name));
-            // form.append(createHiddenInput('phone', phone));
-            // form.append(createHiddenInput('address', address));
-            // form.append(createHiddenInput('note', note));
-            // form.append(createHiddenInput('card_number', cardNumber));
-            // form.append(createHiddenInput('expiration_date', expirationDate));
-            // form.append(createHiddenInput('cvv', cvv));
-            // for (var i = 0; i < selectedItems.length; i++) {
-            //     form.append(createHiddenInput('selected_items[]', selectedItems[i]));
-            // }
-            // form.append(createHiddenInput('total_price', totalPrice));
+            function createHiddenInput(name, value) {
+                return $('<input type="hidden" />').attr('name', name).val(value);
+            }
+            // Thêm các trường input vào form
+            form.append(createHiddenInput('name', name));
+            form.append(createHiddenInput('phone', phone));
+            form.append(createHiddenInput('address', address));
+            form.append(createHiddenInput('note', note));
+            form.append(createHiddenInput('card_number', cardNumber));
+            form.append(createHiddenInput('expiration_date', expirationDate));
+            form.append(createHiddenInput('cvv', cvv));
+            for (var i = 0; i < selectedItems.length; i++) {
+                form.append(createHiddenInput('selected_items[]', selectedItems[i]));
+            }
+            form.append(createHiddenInput('total_price', totalPrice));
 
-            // // Thêm form vào body và submit
-            // $('body').append(form);
-            // form.submit();
+            // Thêm form vào body và submit
+            $('body').append(form);
+            form.submit();
         });
     });
     </script>

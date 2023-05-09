@@ -59,7 +59,7 @@ try{
 
 // Create orders table
 $sql = "CREATE TABLE IF NOT EXISTS orders (
-    order_id INT PRIMARY KEY,
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id VARCHAR(50),
     order_date DATE,
     order_time TIME
