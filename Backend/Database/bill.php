@@ -1,5 +1,6 @@
 <?php
 require_once 'connect.php';
+include 'header.php';
 mysqli_select_db($conn, 'restaurant');
 session_start();
 
@@ -41,16 +42,16 @@ $orderDetailResult = mysqli_stmt_get_result($stmt);
     </style>
 </head>
 
-<body>
+<body style="margin-top:100px;">
     <h1>Bill</h1>
     <h2>Mã đơn hàng: <?php echo $order['order_id']; ?></h2>
     <p>Ngày đặt hàng: <?php echo $order['order_date']; ?></p>
     <p>Thời gian đặt hàng: <?php echo $order['order_time']; ?></p>
 
     <h3>Thông tin khách hàng</h3>
-    <p>Tên: <?php echo $order['name']; ?></p>
-    <p>Số điện thoại: <?php echo $order['phone']; ?></p>
-    <p>Địa chỉ: <?php echo $order['address']; ?></p>
+    <p>Tên: <?php echo isset($order['name']) ? $order['name'] : ''; ?></p>
+    <p>Số điện thoại: <?php echo isset($order['phone']) ? $order['phone'] : ''; ?></p>
+    <p>Địa chỉ: <?php echo isset($order['address']) ? $order['address'] : ''; ?></p>
 
     <h3>Chi tiết đơn hàng</h3>
     <table>
@@ -74,7 +75,7 @@ $orderDetailResult = mysqli_stmt_get_result($stmt);
         </tbody>
     </table>
 
-    <h3>Tổng số tiền: <?php echo $order['total_price']; ?></h3>
+    <h3>Tổng số tiền: <?php echo isset($order['total_price']) ? $order['total_price'] : ''; ?></h3>
 
     <p>Cảm ơn bạn đã mua hàng!</p>
     <p>Xin vui lòng giữ lại bill này cho mục đích bảo hành.</p>

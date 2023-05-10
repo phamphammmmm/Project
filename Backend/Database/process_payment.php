@@ -11,9 +11,9 @@ if (!isset($_SESSION['login'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy thông tin người dùng và đơn hàng từ form
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
+    $customer_name = $_POST['name'];
+    $phone_order = $_POST['phone'];
+    $address_order = $_POST['address'];
     $card_number = $_POST['card_number'];
     $expiration_date = $_POST['expiration_date'];
     $cvv = $_POST['cvv'];
@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
     // Lưu thông tin đơn hàng vào bảng orders
-    $stmt = mysqli_prepare($conn, "INSERT INTO orders (order_id, customer_id, order_date, order_time) VALUES (?, ?, ?, ?)");
-    mysqli_stmt_bind_param($stmt, "ssss", $order_id, $customer_id, $order_date, $order_time);
+    $stmt = mysqli_prepare($conn, "INSERT INTO orders (customer_id, order_date, order_time, customer_name, phone_order, address) VALUES (?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "ssssss", $customer_id, $order_date, $order_time, $customer_name, $phone_order, $address_order);    
     mysqli_stmt_execute($stmt);
 
     if (mysqli_stmt_errno($stmt)) {
@@ -72,40 +72,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_stmt_errno($stmt3)) {
             echo "Lỗi: " . mysqli_stmt_error($stmt3);
         }
+        echo '<br>';
+    echo '<br>';
+    echo '<br>';
+    echo '<br>';
+    echo '<br>';
+    echo '<br>';
+    echo '<br>';
+    echo '<br>';    
+
 
     // Hiển thị thông báo thành công và chuyển hướng
-   echo' <br>';
-   echo' <br>';
-   echo' <br>';
-   echo' <br>';
-   echo' <br>';
-        echo '<p>Đơn hàng của bạn đã được đặt thành công!</p>';
-        echo '<p>Cảm ơn '.$name.' đã mua hàng!</p>';
-        echo '<p>Mã đơn hàng của bạn' . $order_id . '</p>';
-        echo '<p>Tổng số tiền: ' . $totalPrice . '</p>';
-        
-    // Xóa các sản phẩm đã được đặt từ giỏ hàng
+    echo '
+    <script>
+    $(document).ready(function() {
+        Swal.fire({
+            title: "Đơn hàng '.$name.'mua đã được đặt thành công!",
+            icon: "success",
+            timer: 1000, // Thời gian hiển thị thông báo (1 giây)
+            showConfirmButton: false
+        }).then(function() {
+            window.location.href = "bill.php?order_id=' . $order_id . '";
+        });
+    });
+    </script>';
+
+    // Remove the items from the cart
     foreach ($selected_items as $cart_id) {
         $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
         mysqli_stmt_bind_param($stmt, "i", $cart_id);
         mysqli_stmt_execute($stmt);
     }
 
-    //   Hiển thị thông báo thành công và chuyển hướng
-      echo '
-      <script>
-      $(document).ready(function() {
-          Swal.fire({
-              title: "Đơn hàng đã được đặt thành công!",
-              icon: "success",
-              timer: 1000, // Thời gian hiển thị thông báo (1 giây)
-              showConfirmButton: false
-          }).then(function() {
-              window.location.href = "bill.php?order_id=' . $order_id . '";
-          });
-      });
-      </script>
-      ';
+    // Redirect to the "bill.php" page
+    header("Location: bill.php?order_id=" . $order_id);
+    exit();
+
 }
 ?>
 <!DOCTYPE html>

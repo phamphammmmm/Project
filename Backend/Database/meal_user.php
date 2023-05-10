@@ -160,7 +160,7 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div class="meal">
         <?php
         // Danh sách các tên bữa ăn
-        $meal_names = array("lunch", "regular","Snacks","Desert","Beverages");
+        $meal_names = array("lunch", "regular","Snacks","Dessert","Beverages");
 
         // Lặp qua các tên bữa ăn
         foreach ($meal_names as $meal_name) {
