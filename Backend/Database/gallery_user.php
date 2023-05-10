@@ -24,7 +24,10 @@ $gallery = mysqli_fetch_all($result, MYSQLI_ASSOC);
     .gallery-item {
         margin: 10px;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        max-width: 300px;
+        max-width: calc(25% - 20px);
+        /* Adjust the percentage based on your preference */
+        flex-basis: calc(25% - 20px);
+        /* Adjust the percentage based on your preference */
     }
 
     .gallery-item img {
@@ -64,30 +67,19 @@ $gallery = mysqli_fetch_all($result, MYSQLI_ASSOC);
         background-color: #27ae60;
     }
 
-    @media (min-width: 768px) {
-        .col-sm-6 {
-            flex-basis: 50%;
-        }
-
-        .col-md-4 {
-            flex-basis: 33.33%;
-        }
-
-        .col-lg-3 {
-            flex-basis: 25%;
-
+    @media (max-width: 768px) {
+        .gallery-item {
+            max-width: calc(50% - 20px);
+            /* Adjust the percentage based on your preference */
+            flex-basis: calc(50% - 20px);
+            /* Adjust the percentage based on your preference */
         }
     }
 
-    @media (min-width: 992px) {
+    @media (max-width: 576px) {
         .gallery-item {
-            width: 33.33%;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .gallery-item {
-            width: 25%;
+            max-width: 100%;
+            flex-basis: 100%;
         }
     }
     </style>
@@ -104,8 +96,8 @@ $gallery = mysqli_fetch_all($result, MYSQLI_ASSOC);
             <img src="uploads/<?php echo $row['image_path'] ?>" alt="<?php echo $row['item_name'] ?>">
             <h3><?php echo $row['item_name'] ?></h3>
             <h5><?php echo $row['item_description'] ?></h5>
-            <h5><?php echo number_format($row['price_item'], 0, '.', ',') . " VND" ?><h5>
-                    <button>VIEW</button>
+            <h5><?php echo number_format($row['price_item'], 0, '.', ',') . " VND" ?></h5>
+            <button>VIEW</button>
         </div>
         <?php } ?>
 

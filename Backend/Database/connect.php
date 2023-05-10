@@ -45,7 +45,7 @@ $sql = "CREATE TABLE IF NOT EXISTS orders (
     order_time TIME,
     customer_name VARCHAR(50),
     phone_order VARCHAR(20),
-    address VARCHAR(100)
+    address_order VARCHAR(100)
 )";
 
 try {
