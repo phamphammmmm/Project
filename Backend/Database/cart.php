@@ -66,22 +66,6 @@ function add_to_cart($conn, $customer_id, $meal_id, $quantity, $price, $descript
         remove_from_cart($conn, $cart_id);
     }
 
-
-    function remove_from_cart($conn, $cart_id) {
-        $stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE cart_id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $cart_id);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-
-        // Cập nhật lại các giá trị cart_id trong cơ sở dữ liệu
-        mysqli_query($conn, "DELETE FROM cart WHERE cart_id IS NULL;");
-        mysqli_query($conn, "ALTER TABLE cart AUTO_INCREMENT = 1;");
-
-        header("Location: cart.php"); // Redirect back to cart page
-        exit();
-    }
-
-
     // Lấy dữ liệu từ bảng cart
     $query = "SELECT cart.*, meals.item_name, gallery.image_path, gallery.item_description 
     FROM cart
@@ -162,30 +146,6 @@ foreach ($cart as $item) {
     </form>
 
     <script>
-    function updateCart(itemID) {
-        var form = document.getElementById('update-form-' + itemID);
-        var formData = new FormData(form);
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'update_cart.php', true);
-        xhr.onload = function() {
-            // Handle the response here if needed
-        };
-        xhr.send(formData);
-    }
-    // Remove item from cart
-    function removeItem(itemID) {
-        var form = document.getElementById('cart-form');
-        var itemInput = document.createElement('input');
-        itemInput.setAttribute('type', 'hidden');
-        itemInput.setAttribute('name', 'remove_item[]');
-        itemInput.setAttribute('value', itemID);
-        form.appendChild(itemInput);
-
-        var row = document.querySelector('input[value="' + itemID + '"]').parentNode.parentNode;
-        row.parentNode.removeChild(row);
-    }
-
     document.getElementById('cart-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Ngăn chặn form gửi đi
 

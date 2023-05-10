@@ -220,10 +220,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $('input[name="selected_items[]"]').each(function() {
                 selectedItems.push($(this).val());
             });
-
+            console.log(selectedItems);
 
             // Lấy giá trị tổng giá tiền
             var totalPrice = $('#total_price').val();
+
 
             // Log the values to check
             // console.log('Name:', name);

@@ -18,16 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $expiration_date = $_POST['expiration_date'];
     $cvv = $_POST['cvv'];
 
-    $selected_items = isset($_POST['selected_items']) ? $_POST['selected_items'] : '';
-    $selected_items = is_string($selected_items) ? explode(',', $selected_items) : [];
+    $selected_items = isset($_POST['selected_items']) ? $_POST['selected_items'] : [];
+    $selected_items = is_array($selected_items) ? $selected_items : explode(',', $selected_items);
+    
+
+    var_dump($selected_items);
 
     $totalPrice = isset($_POST['total_price']) ? $_POST['total_price'] : 0;
 
     $customer_id = $_SESSION['customer_id'];
     // Tạo đơn hàng mới
-    $order_id = uniqid($_SESSION['customer_id'] . $_SERVER['REMOTE_ADDR']); // Sử dụng số ngẫu nhiên duy nhất kết hợp thông tin khác
+    $order_id = uniqid($_SESSION['customer_id'] . $_SERVER['REMOTE_ADDR']);
     $order_date = date('Y-m-d');
-    $$timezone = date_default_timezone_get();
+    $timezone = date_default_timezone_get();
     date_default_timezone_set($timezone);
     $order_time = date('H:i:s');
     
@@ -41,34 +44,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Lỗi: " . mysqli_stmt_error($stmt);
     }
 
-
+    $item_name=[]; 
     // Lưu thông tin chi tiết đơn hàng vào bảng order_detail
     foreach ($selected_items as $cart_id) {
-        $stmt = mysqli_prepare($conn, "SELECT cart.*, meals.item_name, meals.price 
+        $stmt2 = mysqli_prepare($conn, "SELECT cart.*, meals.item_name, meals.meal_id
         FROM cart
         INNER JOIN meals ON cart.meal_id = meals.meal_id
         WHERE cart.cart_id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $cart_id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_bind_param($stmt2, "i", $cart_id);
+        mysqli_stmt_execute($stmt2);
+        $result = mysqli_stmt_get_result($stmt2);
         $item = mysqli_fetch_assoc($result);
 
         $meal_id = $item['meal_id'];
         $quantity = $item['quantity'];
         $item_name = $item['item_name'];
-        $price = $item['price'];
-
-        $stmt = mysqli_prepare($conn, "INSERT INTO order_detail (order_id, meal_id, quantity, item_name, price) VALUES (?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, "siids", $order_id, $meal_id, $quantity, $item_name, $price);
-        mysqli_stmt_execute($stmt);
+        $item_names[] = $item_name; 
+        $price = $item['price'] * $quantity;
     }
+        $item_name = implode(', ', $item_names); // Chuyển đổi mảng thành chuỗi
 
-    // Sau khi đã lưu đơn hàng thành công, bạn có thể thực hiện các thao tác tiếp theo, như hiển thị thông báo hoặc chuyển hướng người dùng đến trang cảm ơn.
+        var_dump($item_name);
+        $stmt3 = mysqli_prepare($conn, "INSERT INTO order_detail (order_id, meal_id, quantity, item_name, price) VALUES (?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt3, "siids", $order_id, $meal_id, $quantity, $item_name, $price);
+        mysqli_stmt_execute($stmt3);
+
+        if (mysqli_stmt_errno($stmt3)) {
+            echo "Lỗi: " . mysqli_stmt_error($stmt3);
+        }
 
     // Hiển thị thông báo thành công và chuyển hướng
+   echo' <br>';
+   echo' <br>';
+   echo' <br>';
+   echo' <br>';
+   echo' <br>';
         echo '<p>Đơn hàng của bạn đã được đặt thành công!</p>';
-        echo '<p>Cảm ơn bạn đã mua hàng!</p>';
-        echo '<p>Mã đơn hàng của bạn: ' . $order_id . '</p>';
+        echo '<p>Cảm ơn '.$name.' đã mua hàng!</p>';
+        echo '<p>Mã đơn hàng của bạn' . $order_id . '</p>';
         echo '<p>Tổng số tiền: ' . $totalPrice . '</p>';
         
     // Xóa các sản phẩm đã được đặt từ giỏ hàng
@@ -78,9 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_execute($stmt);
     }
 
-    // Hiển thị thông báo thành công và chuyển hướng
-
-      // Hiển thị thông báo thành công và chuyển hướng
+    //   Hiển thị thông báo thành công và chuyển hướng
       echo '
       <script>
       $(document).ready(function() {
