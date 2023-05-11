@@ -1,8 +1,9 @@
 <?php
+session_start();
 require_once 'connect.php';
 include 'header.php';
 mysqli_select_db($conn, 'restaurant');
-session_start();
+
 
     
 if (!isset($_SESSION['login'])) {
@@ -178,7 +179,7 @@ foreach ($cart as $item) {
 
 <style>
 body {
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 table {

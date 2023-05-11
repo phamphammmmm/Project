@@ -46,20 +46,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Tìm kiếm ảnh</title>
+    <style>
+    /* CSS cho phần tìm kiếm */
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        width: 300px;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+    }
+
+    /* CSS cho phần hiển thị kết quả */
+    .image-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .image-container img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .image-info {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 20px 0;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 600px) {
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-container img {
+            max-width: 80%;
+        }
+    }
+    </style>
 </head>
 
 <body>
-    <h1>Tìm kiếm ảnh</h1>
+    <h1>Tìm kiếm </h1>
     <form method="post" action="">
         <input type="text" name="keyword" placeholder="Nhập từ khóa tìm kiếm">
         <button type="submit">Tìm kiếm</button>
     </form>
+
+    <?php
+    // Hiển thị kết quả tìm kiếm
+    if (!empty($images)) {
+        foreach ($images as $image) {
+            echo '<div class="image-container">';
+            echo '<div class="image-info">';
+            echo "Image ID: " . $image["image_id"] . "<br>";
+            echo "Item Name: " . $image["item_name"] . "<br>";
+            echo "Item Description: " . $image["item_description"] . "<br>";
+            echo "Price_item: " . $image["price_item"] . "<br>";
+            echo "Last Modified: " . $image["last_modified"] . "<br>";
+            echo '</div>';
+            echo '<img src="./uploads/' . $image["image_path"] . '" alt="' . $image["item_name"] . '">';
+            echo '</div>';
+            echo "<hr>";
+        }
+    }
+    ?>
 </body>
 
 </html>

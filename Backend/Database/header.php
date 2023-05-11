@@ -12,12 +12,102 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-    .dropdown-content {
-        display: none;
+    /* CSS cho header */
+    header {
+        background-color: #333;
+        color: #fff;
     }
 
-    .dropdown:hover .dropdown-content {
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .button ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .button ul li {
+        margin-right: 15px;
+    }
+
+    .button ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 5px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgb(40, 37, 37);
+    }
+
+    .dropdown-content a {
+        color: white;
+        text-decoration: none;
         display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #3d2121;
+    }
+
+    .dropdown-user {
+        position: relative;
+    }
+
+    .dropbtn-user {
+        padding: 0px 40px 20px 0px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown-login {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        background-color: #f9f9f9;
+    }
+
+    .dropdown-login a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-user:hover .dropdown-login {
+        display: block;
+    }
+
+    /* Responsive CSS */
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+        }
+
+        .button ul {
+            flex-direction: column;
+        }
+
+        .button ul li {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
     }
     </style>
 
@@ -40,6 +130,7 @@
                             <a href="#" data-meal="snacks">Snacks</a>
                             <a href="meal_user.php" data-meal="dessert">Dessert</a>
                             <a href="#" data-meal="beverages">Beverages</a>
+
                         </div>
                     </li>
 
@@ -59,10 +150,11 @@
             <div class="dropdown-user">
                 <button class="dropbtn-user"><i class="fa-solid fa-user"></i></button>
                 <div class="dropdown-login">
-                    <a href="#">login</a>
-                    <a href="#">Register</a>
+                    <a href="login.php" id="loginBtn">Login</a>
+                    <a href="logout.php" id="logoutBtn">Logout</a>
                 </div>
             </div>
+
         </div>
     </header>
     <script>
@@ -78,12 +170,12 @@
             var meal = this.getAttribute('data-meal');
 
             // Hiển thị phần tương ứng trên trang "Meal"
-            showMeal(meals.php);
+            showMeal(meal);
         });
     }
 
     // Hàm hiển thị phần tương ứng trên trang "Meal"
-    function showMeal(meals.php) {
+    function showMeal(meal) {
         // Lấy tất cả các phần tử bữa ăn
         var mealItems = document.querySelectorAll('.meal-item');
 
@@ -99,6 +191,30 @@
             }
         }
     }
+
+    // Lấy các phần tử liên quan đến login/logout
+    var loginBtn = document.getElementById('loginBtn');
+    var logoutBtn = document.getElementById('logoutBtn');
+
+    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    var isLoggedIn = <?php echo isset($_SESSION['login']) && $_SESSION['login'] ? 'true' : 'false'; ?>;
+
+    // Ẩn hoặc hiển thị các nút login/logout tương ứng
+    if (isLoggedIn) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'block';
+    } else {
+        loginBtn.style.display = 'block';
+        logoutBtn.style.display = 'none';
+    }
+
+    // Xử lý sự kiện click cho nút logout
+    logoutBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Chuyển hướng đến trang logout.php để đăng xuất
+        window.location.href = 'logout.php';
+    });
     </script>
 
 </body>
