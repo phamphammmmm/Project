@@ -1,5 +1,4 @@
 <?php
-//Connect to database
 require_once 'connect.php';
 mysqli_select_db($conn,"restaurant");
 
@@ -30,20 +29,6 @@ function searchImages($keyword) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $keyword = $_POST["keyword"];
     $images = searchImages($keyword);
-    // Hiển thị kết quả tìm kiếm
-    if (!empty($images)) {
-        foreach ($images as $image) {
-            echo "Image ID: " . $image["image_id"] . "<br>";
-            echo "Item Name: " . $image["item_name"] . "<br>";
-            echo "<img src='./uploads/" . $image["image_path"] . "' alt='" . $image["item_name"] . "'><br>";
-            echo "Item Description: " . $image["item_description"] . "<br>";
-            echo "Price_item: " . $image["price_item"] . "<br>";
-            echo "Last Modified: " . $image["last_modified"] . "<br>";
-            echo "<hr>";
-        }
-    } else {
-        echo "Không tìm thấy kết quả nào.";
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -81,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .image-container img {
-        max-width: 100%;
+        max-width: 80%;
         height: auto;
     }
 
@@ -105,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .image-container img {
-            max-width: 80%;
+            max-width: 50%;
         }
     }
     </style>
@@ -124,11 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($images as $image) {
             echo '<div class="image-container">';
             echo '<div class="image-info">';
-            echo "Image ID: " . $image["image_id"] . "<br>";
             echo "Item Name: " . $image["item_name"] . "<br>";
             echo "Item Description: " . $image["item_description"] . "<br>";
             echo "Price_item: " . $image["price_item"] . "<br>";
-            echo "Last Modified: " . $image["last_modified"] . "<br>";
             echo '</div>';
             echo '<img src="./uploads/' . $image["image_path"] . '" alt="' . $image["item_name"] . '">';
             echo '</div>';

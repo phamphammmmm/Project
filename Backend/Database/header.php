@@ -14,6 +14,10 @@
     <style>
     /* CSS cho header */
     header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
         background-color: #333;
         color: #fff;
     }
@@ -128,13 +132,11 @@
                             <a href="#" data-meal="lunch">Lunch</a>
                             <a href="#" data-meal="regular">Regular</a>
                             <a href="#" data-meal="snacks">Snacks</a>
-                            <a href="meal_user.php" data-meal="dessert">Dessert</a>
+                            <a href="#" data-meal="dessert">Dessert</a>
                             <a href="#" data-meal="beverages">Beverages</a>
 
                         </div>
                     </li>
-
-
                     <li><a href="gallery_user.php">Gallery</a></li>
                     <li><a href="#">Awards</a></li>
                     <li><a href="#">Catering</a></li>
