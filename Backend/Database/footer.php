@@ -132,8 +132,10 @@
                                 agreeing to receive the latest news and
                                 exclusive offers from our restaurants. </p>
                         </div>
-                        <div class="mb-3"> <input type="submit" name="btn-submit" class="submit-btn btn" id="btn-submit"
-                                value="Sign Up"> </div>
+                        <div class="mb-3">
+                            <input type="submit" name="btn-submit" class="submit-btn btn" id="btn-submit"
+                                value="Sign Up">
+                        </div>
                     </form>
                     <div class="newslatter-thanks" style="display:none;">Thank you for signing up to
                         our newsletter.</div>
@@ -148,9 +150,8 @@
                         <ul id="menu-footer-menu1" class="menu">
                             <li id="menu-item-234" class="menu-item
                                     menu-item-type-post_type
-                                    menu-item-object-page menu-item-234"><a
-                                    href="https://sexyfish.com/contact-us/">Contact
-                                    Us</a></li>
+                                    menu-item-object-page menu-item-234"><a href="contact.php">Contact Us</a>
+                            </li>
                             <li id="menu-item-582" class="menu-item menu-item-type-post_type
                                     menu-item-object-page menu-item-582"><a
                                     href="https://sexyfish.com/careers/">Careers</a></li>

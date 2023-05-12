@@ -24,7 +24,7 @@
         padding: 10px 0px;
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
-        border-bottom: solid 1px #fff;
+        border-bottom: solid 3px #fff;
     }
 
     .navbar {
@@ -160,11 +160,12 @@
 <body>
     <header>
         <div class="navbar">
-            <div class="logo"><a href="home.php">RESTAURANT</a></div>
+            <div class="logo">RESTAURANT</div>
+
             <div class="button">
                 <ul>
                     <li><a href="home.php">Home</a></li>
-                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="about">About Us</a></li>
                     <li class="dropdown">
                         <a href="meal_user.php" class="dropbtn">Meals</a>
                         <div class="dropdown-content">
@@ -178,20 +179,17 @@
 
 
                     <li><a href="gallery_user.php">Gallery</a></li>
-                    <li><a href="awards.php">Awards</a></li>
+                    <li><a href="awards">Awards</a></li>
                     <li><a href="#">Catering</a></li>
                     <li><a href="recipe.php">Recipe of the month</a></li>
-
-                    <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="feedback.php">Feedback us</a></li>
-                    <li></li>
+                    <li><a href="feedback.php">Feedback</a></li>
 
                 </ul>
             </div>
 
 
             <div class="dropdown-user">
-                <button><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></button>
+                <a href="cart.php" class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
                 <button class="dropbtn-user"><i class="fa-solid fa-user"></i></button>
                 <div class="dropdown-login">
                     <a href="login.php" id="loginBtn">Login</a>
@@ -199,7 +197,7 @@
                 </div>
             </div>
 
-            </>
+        </div>
     </header>
     <script>
     // Lấy danh sách các phần tử bữa ăn
