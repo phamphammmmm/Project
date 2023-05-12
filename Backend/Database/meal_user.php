@@ -322,6 +322,9 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     //         popup.style.display = "none";
     //     });
     </script>
+    <?php
+    include 'footer.php';
+    ?>
 </body>
 
 </html>

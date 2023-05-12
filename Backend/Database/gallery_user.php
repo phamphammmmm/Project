@@ -102,6 +102,9 @@ $gallery = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <?php } ?>
 
     </div>
+    <?php
+    include 'footer.php';
+    ?>
 </body>
 
 </html>
