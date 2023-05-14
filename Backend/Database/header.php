@@ -24,7 +24,7 @@
         padding: 10px 0px;
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
-        border-bottom: solid 3px #fff;
+        border-bottom: solid 1px #fff;
     }
 
     .navbar {
@@ -35,10 +35,10 @@
     }
 
     .logo {
-        font-size: 1.4em;
+        font-size: 30px;
         font-weight: bold;
-        padding: 1% 0 1% 5%;
-        color: yellow;
+        padding: 5px 20px;
+        color: white;
     }
 
     .button ul {
@@ -57,6 +57,11 @@
         color: #fff;
         text-decoration: none;
         padding: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .button ul li a:hover {
+        text-decoration: underline;
     }
 
     .dropdown-content {
@@ -70,7 +75,8 @@
         font-size: 0.9em;
         text-decoration: none;
         display: block;
-        text-align: left;
+        padding: 10px;
+        transition: background-color 0.3s ease;
     }
 
     .dropdown-content a:hover {
@@ -80,34 +86,18 @@
     .navbar .button ul li a:hover,
     .dropdown:hover .dropbtn {
         text-decoration: underline;
-        /*  tạo dấu gạch chân khi di chuột qua  */
-    }
-
-    .dropdown-content a {
-        color: white;
-        text-decoration: none;
-        text-align: left;
-    }
-
-    .dropdown-content a:hover {
-        background-color: #3d2121;
-    }
-
-    /* đổi màu nền khi di chuột vào liên kết thả xuống */
-
-    .dropdown:hover .dropdown-content {
-        display: flex;
-        /* hiện thị danh sách thả xuống */
     }
 
     /* user */
     .dropdown-user {
+        display: flex;
         position: relative;
         padding-right: 6%;
     }
 
     .dropbtn-user {
-        color: black;
+        background: none;
+        color: white;
         border: none;
         cursor: pointer;
         font-size: 1.3em;
@@ -132,10 +122,18 @@
         background-color: #3d2121;
     }
 
-    /* đổi màu nền khi di chuột vào liên kết thả xuống */
-
     .dropdown-user:hover .dropdown-login {
         display: flex;
+    }
+
+    .logo a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .cart a {
+        color: white;
+        margin: 100px;
     }
 
     /* Responsive CSS */
@@ -160,36 +158,33 @@
 <body>
     <header>
         <div class="navbar">
-            <div class="logo">RESTAURANT</div>
+            <div class="logo"><a href="home.php">VINEGAER</a></div>
 
             <div class="button">
                 <ul>
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="about">About Us</a></li>
+                    <li><a href="about.php">about</a></li>
                     <li class="dropdown">
-                        <a href="meal_user.php" class="dropbtn">Meals</a>
+                        <a href="meal_user.php" class="dropbtn">meals</a>
                         <div class="dropdown-content">
-                            <a href="#" data-meal="lunch">Lunch</a>
+                            <a href="#" data-meal="lunch">lunch</a>
                             <a href="#" data-meal="regular">Regular</a>
-                            <a href="#" data-meal="snacks">Snacks</a>
-                            <a href="meal_user.php" data-meal="dessert">Dessert</a>
-                            <a href="#" data-meal="beverages">Beverages</a>
+                            <a href="#" data-meal="snacks">snacks</a>
+                            <a href="meal_user.php" data-meal="dessert">dessert</a>
+                            <a href="#" data-meal="beverages">beverages</a>
                         </div>
                     </li>
-
-
-                    <li><a href="gallery_user.php">Gallery</a></li>
-                    <li><a href="awards">Awards</a></li>
-                    <li><a href="#">Catering</a></li>
-                    <li><a href="recipe.php">Recipe of the month</a></li>
-                    <li><a href="feedback.php">Feedback</a></li>
+                    <li><a href="gallery_user.php">gallery</a></li>
+                    <li><a href="awards.php">awards</a></li>
+                    <li><a href="#">catering</a></li>
+                    <li><a href="recipe.php">recipe of the month</a></li>
+                    <li><a href="feedback.php">feedback</a></li>
 
                 </ul>
             </div>
 
-
+            <div class="cart"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></div>
             <div class="dropdown-user">
-                <a href="cart.php" class="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
                 <button class="dropbtn-user"><i class="fa-solid fa-user"></i></button>
                 <div class="dropdown-login">
                     <a href="login.php" id="loginBtn">Login</a>
@@ -261,4 +256,4 @@
 
 </body>
 
-</html>
+</html>l

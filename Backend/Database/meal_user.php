@@ -148,7 +148,48 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         text-align: center;
     }
 
+    .popup-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .popup-content img {
+        margin-bottom: 10px;
+    }
+
+    .popup-content h2,
+    .popup-content p,
+    .popup-content .quantity,
+    .popup-content button {
+        margin-bottom: 5px;
+    }
+
+    .quantity {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #popup-item-price {
+        font-weight: bold;
+    }
+
+    #popup-quantity-increase,
+    #popup-quantity-decrease {
+        border: 1px solid black;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    input[type="number"] {
+        border: 1px solid black;
+    }
+
     #popup-item-quantity {
+        margin-top: 5px;
         width: 80px;
         text-align: center;
     }
@@ -156,7 +197,6 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 </head>
 
 <body>
-    <h1>Meal</h1>
     <div class="meal">
         <?php
         // Danh sách các tên bữa ăn
@@ -200,7 +240,7 @@ $meals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div id="popup" class="popup">
         <div id="popup-overlay"></div> <!-- Thêm phần tử overlay -->
         <div class="popup-content">
-            <img id="popup-item-image" src="" alt="" width="200">
+            <img id="popup-item-image" src="" alt="" width="350px">
             <h2 id="popup-item-name"></h2>
             <p id="popup-item-description"></p>
             <p id="popup-item-price"></p>

@@ -12,6 +12,7 @@
     <title>Document</title>
     <style>
     /* Thiết lập kiểu CSS cho thiết bị có chiều rộng màn hình tối đa là 768px */
+
     .container1 {
         margin-top: 5%;
     }
@@ -25,7 +26,9 @@
     }
 
     .container1 button {
-        margin: 30px 0px 0px 0px;
+        background-color: white;
+        cursor: pointer;
+        margin: 20px 0px 0px 0px;
         padding: 15px 20px;
     }
 
@@ -36,7 +39,7 @@
 
     /* section1 */
     .container1 .section1 {
-        background-image: url("./img1/ab8.webp");
+        background-image: url("./image/about8.webp");
         background-size: cover;
         display: flex;
         flex-direction: row;
@@ -74,7 +77,7 @@
 
     /* section2 */
     .section2 {
-        background-image: url("./img1/ab2.webp");
+        background-image: url("./image/about2.webp");
         background-size: cover;
         display: flex;
         flex-direction: row;
@@ -142,7 +145,7 @@
     .section3,
     .section4 h2,
     p {
-        color: black;
+        /* color: black; */
     }
 
     .section4 {
@@ -152,14 +155,19 @@
         justify-content: center;
     }
 
+    .content,
+    .image-wrapper {
+        flex-basis: 50%;
+    }
+
     .section4 .image-wrapper img {
         width: 546px;
         height: 358px;
     }
 
     .section4 .content {
-        text-align: left;
-        padding: 0px -10px;
+
+        margin-top: -30px;
     }
 
     .section4 .image-wrapper {
@@ -167,24 +175,20 @@
         padding: 110px 0px;
     }
 
-    .section .content .description {
-        width: 350px;
-        padding: 0px 100px;
-    }
-
-    .container1 button {
-        background-color: rgb(245, 202, 72);
-        cursor: pointer;
+    .description {
+        width: 400px;
+        margin-left: 150px;
     }
 
     .container1 button:hover {
-        background-color: rgb(245, 186, 8);
+        background-color: #333;
+        color: white;
     }
 
     .container1 .title4 {
         font-family: Montserrat, sans-serif;
         font-style: normal;
-        font-size: 40px;
+        font-size: 30px;
         letter-spacing: .1em;
     }
 

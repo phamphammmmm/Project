@@ -12,7 +12,6 @@
     <style>
     .container2 {
         width: 100%;
-        margin-top: 5%;
     }
 
     .container2 .img {
@@ -22,7 +21,7 @@
     .container2 .img .style-img {
         width: 100%;
         height: 450px;
-        opacity: 80%;
+        opacity: 95%;
     }
 
     .container2 .img .bottom-left {
@@ -88,7 +87,7 @@
         </div>
 
         <div class="row1">
-            <div class="row11"><img src="./image/aw2.png" alt="" style="height: 600px; width: 100%;"></div>
+            <div class="row11"><img src="./image/Vinegaer (2).png" alt="" style="height: 600px; width: 100%;"></div>
             <div class="row12">
                 <p><STRONG>THE BEST RESTAURANT AWARDS 2022</STRONG> ceremony was a highly
                     anticipated event for food lovers all around the world.

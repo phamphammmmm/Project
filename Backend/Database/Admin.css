@@ -261,7 +261,7 @@ body {
 /* ================== Order Details List ============== */
 .details {
   position: relative;
-  width: 100%;
+  width: 96%;
   padding: 20px;
   display: grid;
   /* grid-template-columns: 2fr 1fr; */
