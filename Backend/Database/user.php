@@ -111,6 +111,9 @@ $conn->close();
 </head>
 
 <body>
+    <?php
+    include 'admin.php';
+    ?>
     <?php if (!empty($users)) : ?>
     <table>
         <thead>

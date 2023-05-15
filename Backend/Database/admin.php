@@ -514,7 +514,7 @@
         }
     }
     </style>
-    <script>
+    <!-- <script>
     function showPage(url) {
         $.ajax({
             url: url,
@@ -523,7 +523,7 @@
             }
         });
     }
-    </script>
+    </script> -->
 
 </head>
 
@@ -550,9 +550,10 @@
                 <li>
                     <a href="#">
                         <span class="icon">
-                            <ion-icon name="people-outline" onclick="showPage('user.php')"></ion-icon>
+                            <ion-icon name="people-outline" onclick="showPage('user.php')"><a href="user.php"></a>
+                            </ion-icon>
                         </span>
-                        <span class="title" onclick="showPage('user.php')">User</span>
+                        <span class="title" onclick="showPage('user.php')"><a href="user.php">User</a></span>
                     </a>
                 </li>
 

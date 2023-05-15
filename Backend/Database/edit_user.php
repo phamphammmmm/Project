@@ -69,12 +69,17 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
     }
 
     h1 {
+        display: flex;
+        justify-content: center;
         margin-bottom: 20px;
     }
 
     form {
+        border: 2px solid black;
         max-width: 400px;
         margin: 0 auto;
+        padding: 20px 40px;
+        border-radius: 5px;
     }
 
     label {
@@ -88,11 +93,12 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
     input[type="email"],
     select {
         width: 100%;
-        padding: 8px;
+        padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
+        font-size: 16px;
     }
 
     input[type="submit"] {
@@ -102,6 +108,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        font-size: 16px;
     }
 
     input[type="submit"]:hover {
@@ -111,6 +118,9 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 </head>
 
 <body>
+    <?php
+    include 'admin.php'
+    ?>
     <h1>Sửa người dùng</h1>
     <form method="post" action="">
         <input type="hidden" name="user_id" value="<?php echo $user['customer_id']; ?>">

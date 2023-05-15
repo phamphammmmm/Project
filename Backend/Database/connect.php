@@ -115,6 +115,18 @@ $sql = "CREATE TABLE IF NOT EXISTS order_detail (
     FOREIGN KEY (meal_id) REFERENCES meals(meal_id)
 )";
 
+// Create orders table
+$sql = "CREATE TABLE IF NOT EXISTS catering (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id VARCHAR(50),
+    order_date DATE,
+    order_time TIME,
+    item_name VARCHAR(50),
+    price DECIMAL(8,2),
+    customer_name VARCHAR(50),
+    phone_order VARCHAR(20),
+    address_order VARCHAR(100)
+)";
 try {
     $res = $conn->query($sql);
     if ($res) {

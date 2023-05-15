@@ -79,19 +79,11 @@ $price_item="";
 </head>
 
 <body>
-    <h1>Gallery Form</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="image_id" value="<?php echo $image_id ?>">
-        <label for="item_name">Item Name:</label>
-        <input type="text" name="item_name" value="<?php echo $item_name ?>">
-        <label for="image_path">Image Path:</label>
-        <input type="file" name="image_path">
-        <label for="price_item">Price Item:</label>
-        <input type="text" name="price_item" value="<?php echo $price_item ?>">
-        <label for="item_description">Item Description:</label>
-        <textarea name="item_description"><?php echo $item_description ?></textarea>
-        <button type="submit" name="save">Save</button>
-    </form>
+    <?php
+    include 'admin.php';
+    ?>
+    <h1>Gallery</h1>
+    <a href="gallery_form.php">Add</a>
     <table>
         <thead>
             <tr>

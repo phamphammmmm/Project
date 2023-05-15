@@ -192,6 +192,15 @@
         color: #a12022;
     }
 
+    .comments .recomment textarea {
+        padding: 5px 0px 0px 10px;
+        color: #a12022;
+    }
+
+    .comments .recomment ::placeholder {
+        color: #a12022;
+    }
+
     /* mobile: width < 740px*/
     @media only screen and (max-width: 739px) {
         .container {

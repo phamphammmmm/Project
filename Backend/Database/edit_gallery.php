@@ -50,7 +50,7 @@ if (isset($_POST['save'])) {
 <html lang="en">
 
 <head>
-    <title>Sửa người dùng</title>
+    <title>Sửa gallery</title>
     <style>
     form {
         display: flex;
@@ -94,6 +94,9 @@ if (isset($_POST['save'])) {
 </head>
 
 <body>
+    <?php
+    include 'admin.php';
+    ?>
     <!-- HTML form for editing the product information -->
     <form method="POST" action="edit_gallery.php?id=<?php echo $id; ?>" enctype="multipart/form-data">
         <label for="item_name">Item Name:</label>

@@ -4,8 +4,6 @@ require_once 'connect.php';
 include 'header.php';
 mysqli_select_db($conn, 'restaurant');
 
-
-    
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
@@ -61,11 +59,18 @@ function add_to_cart($conn, $customer_id, $meal_id, $quantity, $price, $descript
     mysqli_stmt_execute($stmt); 
     }
 }
+// DELETE: Delete an order
+if (isset($_GET['cart_id'])) {
+    $cart_id = $_GET['cart_id'];
 
-    if (isset($_POST['remove'])) {
-        $cart_id = $_POST['item_id'];
-        remove_from_cart($conn, $cart_id);
+    $sql = "DELETE FROM cart WHERE cart_id = '$cart_id'";
+    if ($conn->query($sql) === TRUE) {
+        $message = "Order deleted successfully.";
+    } else {
+        $message = "Error deleting order: " . $conn->error;
     }
+}
+
 
     // Lấy dữ liệu từ bảng cart
     $query = "SELECT cart.*, meals.item_name, gallery.image_path, gallery.item_description 
@@ -137,7 +142,7 @@ foreach ($cart as $item) {
                     </td>
                     <td><?php echo number_format($item['price'] * $item['quantity']); ?></td>
                     <td>
-                        <button type="button" onclick="removeItem(<?php echo $item['meal_id']; ?>)">Remove</button>
+                        <a href="cart.php?cart_id=<?php echo $item['cart_id']; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -147,6 +152,21 @@ foreach ($cart as $item) {
     </form>
 
     <script>
+    function removeItem(cart_id) {
+        if (confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            var form = document.getElementById('cart-form');
+            var inputCartId = document.createElement('input');
+            inputCartId.setAttribute('type', 'hidden');
+            inputCartId.setAttribute('name', 'selected_items[]');
+            inputCartId.setAttribute('value', cart_id);
+            form.appendChild(inputCartId);
+
+            // Thay đổi action của form để chuyển hướng đến trang "cart.php"
+            form.setAttribute('action', 'cart.php');
+            form.submit();
+        }
+    }
+
     document.getElementById('cart-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Ngăn chặn form gửi đi
 
@@ -179,7 +199,7 @@ foreach ($cart as $item) {
 
 <style>
 body {
-    margin-top: 80px;
+    margin-top: 50px;
 }
 
 table {
